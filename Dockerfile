@@ -20,4 +20,8 @@ ENV TZ=Asia/Shanghai
 
 COPY --from=dev /go/bin/fungo .
 
-CMD ["./fungo"]
+EXPOSE 3000/tcp
+
+ENTRYPOINT["./fungo"]
+
+CMD ["--help"]
