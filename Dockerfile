@@ -22,6 +22,6 @@ COPY --from=dev /go/bin/fungo .
 
 EXPOSE 3000/tcp
 
-ENTRYPOINT ["./fungo"]
+ENTRYPOINT ["/fungo"]
 
 CMD ["--help"]
