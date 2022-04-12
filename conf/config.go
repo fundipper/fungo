@@ -3,6 +3,7 @@ package conf
 import (
 	"fmt"
 
+	"github.com/fundipper/fungo/pkg/util"
 	"github.com/spf13/viper"
 )
 
@@ -82,12 +83,22 @@ var (
 )
 
 func init() {
+
+	x, err := util.NewTree().ReadDir("/x")
+	fmt.Println(111, x, err)
+
+	y, err := util.NewPath().Code()
+	fmt.Println(222, y)
+
+	z, err := util.NewPath().Work()
+	fmt.Println(333, z)
+
 	v = viper.New()
 	v.SetConfigName(CONFIG_ROOT)
 	v.SetConfigType(CONFIG_TYPE)
 	v.AddConfigPath("./")
 
-	err := v.ReadInConfig()
+	err = v.ReadInConfig()
 	if err != nil {
 		return
 	}
@@ -118,6 +129,7 @@ func init() {
 	}
 
 	config.Theme = NewTheme()
+
 	PARSE_STATE = true
 }
 
