@@ -39,12 +39,13 @@ const (
 	FEEDS_RSS  = "rss.xml"
 	FEEDS_JSON = "feeds.json"
 
-	THEME_ROOT     = "theme"
 	CONTENT_ROOT   = "content"
 	CONTENT_MEDIA  = "content/media"
 	PUBLIC_MEIDA   = "public/media"
 	PUBLIC_ASSETS  = "public/assets"
 	PUBLIC_SITEMAP = "public/sitemap.xml"
+	THEME_ROOT     = "theme"
+	THEME_DEFAULT  = "fungo"
 
 	ROOT_TOML    = "config.toml"
 	CONTENT_MD   = "content/%s.md"

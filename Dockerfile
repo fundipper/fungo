@@ -18,10 +18,8 @@ RUN apk --no-cache add ca-certificates tzdata
 
 ENV TZ=Asia/Shanghai
 
-COPY --from=dev /go/bin/fungo .
+COPY --from=dev /go/bin/fungo /bin
 
-EXPOSE 3000/tcp
-
-ENTRYPOINT ["/fungo"]
+ENTRYPOINT ["fungo"]
 
 CMD ["--help"]
