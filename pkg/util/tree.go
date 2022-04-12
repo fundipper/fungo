@@ -17,11 +17,13 @@ func NewTree() *Tree {
 func (t *Tree) ReadDir(name string) ([]string, error) {
 	result := []string{}
 	err := filepath.Walk(name, func(path string, info os.FileInfo, err error) error {
-		if info.IsDir() {
-			return nil
-		}
+		if info != nil {
+			if info.IsDir() {
+				return nil
+			}
 
-		result = append(result, path)
+			result = append(result, path)
+		}
 		return nil
 	})
 	return result, err

@@ -18,7 +18,6 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/fundipper/fungo/conf"
 	"github.com/fundipper/fungo/internal/cli"
 	"github.com/spf13/cobra"
 )
@@ -30,12 +29,7 @@ var siteCmd = &cobra.Command{
 	Long:  `create a new site with default content.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		message := "create new site success"
-		err := cli.NewSite(args[0]).Create()
-		if err != nil {
-			message = err.Error()
-		}
-
-		err = cli.NewTheme(conf.THEME_DEFAULT).Create()
+		err := cli.NewSite().Create(args[0])
 		if err != nil {
 			message = err.Error()
 		}

@@ -2,7 +2,6 @@ package conf
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/spf13/viper"
 )
@@ -91,7 +90,7 @@ func init() {
 
 	err := v.ReadInConfig()
 	if err != nil {
-		log.Fatal(err)
+		return
 	}
 
 	config = &Config{
@@ -116,11 +115,10 @@ func init() {
 	v.AddConfigPath(THEME_USED)
 	err = v.MergeInConfig()
 	if err != nil {
-		log.Fatal(err)
+		return
 	}
 
 	config.Theme = NewTheme()
-
 	PARSE_STATE = true
 }
 

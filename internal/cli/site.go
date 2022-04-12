@@ -9,23 +9,29 @@ import (
 	"github.com/go-git/go-git/v5/plumbing"
 )
 
-type Site struct {
-	Name string
+type Site struct{}
+
+func NewSite() *Site {
+	return &Site{}
 }
 
-func NewSite(name string) *Site {
-	return &Site{
-		Name: name,
-	}
-}
-
-func (s *Site) Create() error {
+func (s *Site) Create(name string) error {
 	work, err := util.NewPath().Work()
 	if err != nil {
 		return err
 	}
-	path := filepath.Join(work, s.Name)
 
+	path := filepath.Join(work, name)
+	err = s.Clone(path)
+	if err != nil {
+		return err
+	}
+
+	path = filepath.Join(work, name, conf.THEME_ROOT, conf.THEME_DEFAULT)
+	return NewTheme().Clone(path)
+}
+
+func (s *Site) Clone(path string) error {
 	r, err := git.PlainClone(path, false, &git.CloneOptions{
 		URL:               conf.URL_SITE,
 		RecurseSubmodules: git.DefaultSubmoduleRecursionDepth,

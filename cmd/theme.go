@@ -29,7 +29,7 @@ var themeCmd = &cobra.Command{
 	Long:  `create a new theme with default content.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		message := "create new theme success"
-		err := cli.NewTheme(args[0]).Create()
+		err := cli.NewTheme().Create(args[0])
 		if err != nil {
 			message = err.Error()
 		}

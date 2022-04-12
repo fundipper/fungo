@@ -9,23 +9,23 @@ import (
 	"github.com/go-git/go-git/v5/plumbing"
 )
 
-type Theme struct {
-	Name string
+type Theme struct{}
+
+func NewTheme() *Theme {
+	return &Theme{}
 }
 
-func NewTheme(name string) *Theme {
-	return &Theme{
-		Name: name,
-	}
-}
-
-func (t *Theme) Create() error {
+func (t *Theme) Create(name string) error {
 	work, err := util.NewPath().Work()
 	if err != nil {
 		return err
 	}
 
-	path := filepath.Join(work, conf.THEME_ROOT, t.Name)
+	path := filepath.Join(work, conf.THEME_ROOT, name)
+	return t.Clone(path)
+}
+
+func (t *Theme) Clone(path string) error {
 	r, err := git.PlainClone(path, false, &git.CloneOptions{
 		URL:               conf.URL_THEME,
 		RecurseSubmodules: git.DefaultSubmoduleRecursionDepth,
