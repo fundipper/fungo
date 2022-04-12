@@ -134,7 +134,7 @@ how to use fungo ? see [https://fungo.dev/doc/overview/](https://fungo.dev/doc/o
 
   - [x] sitemap
 
-  - [] robot.txt
+  - [ ] robot.txt
 
 # Thanks
 
