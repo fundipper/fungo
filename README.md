@@ -1,9 +1,9 @@
-         ____                                
-        / __/  __  __   ____    ____ _  ____ 
+         ____
+        / __/  __  __   ____    ____ _  ____
        / /_   / / / /  / __ \  / __  / / __ \
       / __/  / /_/ /  / / / / / /_/ / / /_/ /
-     /_/     \__,_/  /_/ /_/  \__, /  \____/ 
-                            /____/ v1.0.0   
+     /_/     \__,_/  /_/ /_/  \__, /  \____/
+                            /____/ v1.0.0
 
 # Overview
 
@@ -15,42 +15,24 @@ go get
 
     go get github.com/fundipper/fungo
 
-# tree
+docker
 
-    .
-    ├── config.toml
-    ├── content
-    │   ├── document 
-    │   ├── page 
-    │   ├── media
-    │   ├── post 
-    ├── source
-    └── theme
-        └── fungo
-            ├── assets
-            ├── i18n
-            ├── package-lock.json
-            ├── package.json
-            ├── tailwind.config.js
-            ├── templates
-            ├── theme.toml
-            └── watch.sh
+    docker pull fundipper/fungo
 
+    
 # command
 
 fungo is easy to use, only have 5 commands.
 
 ## site
 
-create a new site 
+create a new site
 
     fungo site your-site-name
 
-## theme
+docker
 
-create a new theme (if you need your own template) 
-
-    fungo theme your-theme-name
+    docker run -it --rm -v $PWD:/fungo fundipper/fungo site your-site-name
 
 ## file
 
@@ -58,10 +40,43 @@ create a new file
 
     fungo file your-file-model your-file-name
 
+docker
+
+    docker run -it --rm -v $PWD:/fungo -w /fungo/my-fungo-site fundipper/fungo file your-file-model your-file-name
+
+ps:
+
+default file model include [`article` , `page`, `document`]
+
+you can define your own file model with yaml in `source`
+
+## theme
+
+create a new theme
+
+    fungo theme your-theme-name
+
+docker
+
+    docker run -it --rm -v $PWD:/fungo -w /fungo/my-fungo-site fundipper/fungo theme your-theme-name
+
+ps:
+
+usually, you can get theme from fungo theme store or some open source repository
+
+if you need your own one, use this command to create it
+
+it's not too complicated, only needs tailwindcss
+
 ## serve
+
 run serve mode
 
     fungo serve
+
+docker
+
+    docker run -it --rm -v $PWD:/fungo -w /fungo/my-fungo-site -p 3000:3000 fundipper/fungo serve
 
 ## build
 
@@ -69,47 +84,84 @@ run build mode
 
     fungo build
 
+docker
+
+    docker run -it --rm -v $PWD:/fungo -w /fungo/my-fungo-site fundipper/fungo build
+
+# document
+
+ours [official website](https://fungo.dev/), [document](https://fungo.dev/doc/overview/), [theme](https://fungo.dev/theme/), [blog](https://fungo.dev/post/) are all generate based on `fungo`.
+
+how to use fungo ? see [https://fungo.dev/doc/overview/](https://fungo.dev/doc/overview/) get .
+
+# feature
+
+- [x] Support
+
+  - [x] Article
+
+  - [x] Page
+
+  - [x] Document
+
+  - [x] Customize
+
+  - [x] I18N
+
+- [x] Markdown
+
+  - [x] TOC
+
+  - [x] Highlighting
+
+  - [x] Lazyload
+
+- [x] Feeds
+
+  - [x] RSS 2.0
+
+  - [x] Atom 1.0
+
+  - [x] JSON 1.1
+
+- [x] I18N
+
+  - [x] Content
+
+  - [x] Template
+
+- [x] SEO
+
+  - [x] sitemap
+
+  - [] robot.txt
+
 # Thanks
 
-- [x] cmd 
+- Language & Framework
 
-https://github.com/spf13/cobra
+  - [golang](https://go.dev/)
 
-- [x] config
+  - [tailwindcss](https://www.tailwindcss.com/)
 
-https://github.com/spf13/viper
+  - [alpinejs](https://alpinejs.dev/)
 
-- [x] router
+- Tools & Libraries
 
-https://github.com/julienschmidt/httprouter
+  - [cobra](https://github.com/spf13/cobra)
 
-- [x] markdown
+  - [viper](https://github.com/spf13/viper)
 
-https://github.com/yuin/goldmark
+  - [goldmark](https://github.com/yuin/goldmark)
 
-- [x] cache
+  - [ristretto](https://github.com/dgraph-io/ristretto)
 
-https://github.com/dgraph-io/ristretto
+  - [httprouter](https://github.com/julienschmidt/httprouter)
 
-- [x] render
+  - [fsnotify](https://github.com/fsnotify/fsnotify)
 
-go/template
+  - [copy](https://github.com/otiai10/copy)
 
-- [x] copy
+  - [go-git](https://github.com/go-git/go-git)
 
-https://github.com/otiai10/copy
-
-- [x] git
-
-https://github.com/go-git/go-git
-
-- [x] watch file
-
-https://github.com/fsnotify/fsnotify
-
-- [x] sitemap
-
-https://github.com/beevik/etree
-
-- [x] feeds
-
+  - [etree](https://github.com/beevik/etree)
