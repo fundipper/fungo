@@ -92,7 +92,7 @@ docker
 
 ours [official website](https://fungo.dev/), [document](https://fungo.dev/doc/overview/), [theme](https://fungo.dev/theme/), [blog](https://fungo.dev/post/) are all generate based on `fungo`.
 
-how to use fungo ? see [https://fungo.dev/doc/overview/](https://fungo.dev/doc/overview/) get .
+how to use fungo ? see [https://fungo.dev/doc/overview/](https://fungo.dev/doc/overview/).
 
 # feature
 
