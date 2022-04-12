@@ -2,8 +2,8 @@ package conf
 
 import (
 	"fmt"
+	"log"
 
-	"github.com/fundipper/fungo/pkg/util"
 	"github.com/spf13/viper"
 )
 
@@ -58,8 +58,8 @@ const (
 	PREFIX_PAGE    = "%s/"
 	SUFFIX_MD      = ".md"
 
-	URL_SITE  = "https://gitee.com/fundipper/site"
-	URL_THEME = "https://gitee.com/fundipper/theme"
+	URL_SITE  = "https://github.com/fundipper/site"
+	URL_THEME = "https://github.com/fundipper/theme"
 
 	ERROR_CONFIG  = "config is nil"
 	ERROR_CONTENT = "content is nil"
@@ -83,24 +83,14 @@ var (
 )
 
 func init() {
-
-	x, err := util.NewTree().ReadDir("/x")
-	fmt.Println(111, x, err)
-
-	y, err := util.NewPath().Code()
-	fmt.Println(222, y)
-
-	z, err := util.NewPath().Work()
-	fmt.Println(333, z)
-
 	v = viper.New()
 	v.SetConfigName(CONFIG_ROOT)
 	v.SetConfigType(CONFIG_TYPE)
 	v.AddConfigPath("./")
 
-	err = v.ReadInConfig()
+	err := v.ReadInConfig()
 	if err != nil {
-		return
+		log.Fatal(err)
 	}
 
 	config = &Config{
@@ -125,7 +115,7 @@ func init() {
 	v.AddConfigPath(THEME_USED)
 	err = v.MergeInConfig()
 	if err != nil {
-		return
+		log.Fatal(err)
 	}
 
 	config.Theme = NewTheme()
