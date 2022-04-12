@@ -14,7 +14,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install
 
 FROM alpine:latest as pro
 
-RUN apk --no-cache add ca-certificates tzdata openssh
+RUN apk --no-cache add ca-certificates tzdata openssh git
 
 ENV TZ=Asia/Shanghai
 
