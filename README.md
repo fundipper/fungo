@@ -132,9 +132,9 @@ how to use fungo ? see [https://fungo.dev/doc/overview/](https://fungo.dev/doc/o
 
 - [x] SEO
 
-  - [x] sitemap
+  - [x] sitemap.xml
 
-  - [ ] robot.txt
+  - [x] robot.txt
 
 # Thanks
 

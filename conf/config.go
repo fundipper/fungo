@@ -11,6 +11,10 @@ const (
 	CONFIG_THEME = "theme"
 	CONFIG_TYPE  = "toml"
 
+	CONTENT_ROOT  = "content"
+	CONTENT_MEDIA = "content/media"
+	CONTENT_MD    = "content/%s.md"
+
 	MESSAGE_CONTENT  = "content"
 	MESSAGE_TOC      = "toc"
 	META_CATALOG     = "catalog"
@@ -38,25 +42,24 @@ const (
 	FEEDS_RSS  = "rss.xml"
 	FEEDS_JSON = "feeds.json"
 
-	CONTENT_ROOT   = "content"
-	CONTENT_MEDIA  = "content/media"
-	PUBLIC_MEIDA   = "public/media"
+	PUBLIC_ROOT    = "public"
+	PUBLIC_FEEDS   = "public/%s"
 	PUBLIC_ASSETS  = "public/assets"
+	PUBLIC_MEIDA   = "public/media"
 	PUBLIC_SITEMAP = "public/sitemap.xml"
-	THEME_ROOT     = "theme"
-	THEME_DEFAULT  = "fungo"
+	PUBLIC_HTML    = "public%sindex.html"
+	PUBLIC_XML     = "public/sitemap/%s.xml"
 
-	ROOT_TOML    = "config.toml"
-	CONTENT_MD   = "content/%s.md"
-	PUBLIC_FEEDS = "public/%s"
-	PUBLIC_HTML  = "public%sindex.html"
-	PUBLIC_XML   = "public/sitemap/%s.xml"
-	SOURCE_YAML  = "source/%s.yaml"
-	SITEMAP_XML  = "%s/sitemap/%s.xml"
-
+	ROOT_TOML      = "config.toml"
 	PREFIX_CONTENT = "content/"
 	PREFIX_PAGE    = "%s/"
-	SUFFIX_MD      = ".md"
+
+	SITEMAP_XML = "%s/sitemap/%s.xml"
+	SOURCE_YAML = "source/%s.yaml"
+	SUFFIX_MD   = ".md"
+
+	THEME_ROOT    = "theme"
+	THEME_DEFAULT = "fungo"
 
 	URL_SITE  = "https://github.com/fundipper/site"
 	URL_THEME = "https://github.com/fundipper/theme"

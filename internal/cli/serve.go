@@ -80,6 +80,7 @@ func (s *Serve) Run() {
 	r.ServeFiles("/media/*filepath", http.Dir(conf.CONTENT_MEDIA))
 	r.ServeFiles("/assets/*filepath", http.Dir(conf.THEME_ASSETS))
 
+	r.NotFound = http.FileServer(http.Dir(conf.PUBLIC_ROOT))
 	r.PanicHandler = func(w http.ResponseWriter, r *http.Request, i interface{}) {
 		fmt.Fprintf(w, "error: %v", i)
 	}
