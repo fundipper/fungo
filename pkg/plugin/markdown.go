@@ -5,6 +5,7 @@ import (
 
 	toc "github.com/abhinav/goldmark-toc"
 	"github.com/fundipper/fungo/conf"
+	images "github.com/fundipper/goldmark-images"
 	"github.com/yuin/goldmark"
 	emoji "github.com/yuin/goldmark-emoji"
 	highlighting "github.com/yuin/goldmark-highlighting"
@@ -24,6 +25,13 @@ func init() {
 				extension.GFM,
 				emoji.Emoji,
 				meta.Meta,
+				images.NewExtender(func(src string) (string, map[string]string) {
+					return conf.NewSite().Markdown.Lazyload.Data.Value,
+						map[string]string{
+							conf.NewSite().Markdown.Lazyload.Class.Key: conf.NewSite().Markdown.Lazyload.Class.Value,
+							conf.NewSite().Markdown.Lazyload.Data.Key:  src,
+						}
+				}),
 				highlighting.NewHighlighting(
 					highlighting.WithStyle(conf.NewConfig().Site.Markdown.Highlighting),
 				),

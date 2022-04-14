@@ -11,12 +11,18 @@ type Site struct {
 	Name     string
 	Slogan   string
 	Theme    string
-	Lazyload struct {
-		Old string
-		New string
-	}
 	Markdown struct {
 		Highlighting string
+		Lazyload     struct {
+			Class struct {
+				Key   string
+				Value string
+			}
+			Data struct {
+				Key   string
+				Value string
+			}
+		}
 	}
 	Sitemap struct {
 		Changefreq string

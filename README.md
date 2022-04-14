@@ -116,6 +116,8 @@ how to use fungo ? see [https://fungo.dev/doc/overview/](https://fungo.dev/doc/o
 
   - [x] Lazyload
 
+  - [x] Emoji
+
 - [x] Feeds
 
   - [x] RSS 2.0

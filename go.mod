@@ -9,6 +9,7 @@ require (
 	github.com/dgraph-io/ristretto v0.1.0
 	github.com/fatih/color v1.13.0
 	github.com/fsnotify/fsnotify v1.5.1
+	github.com/fundipper/goldmark-images v0.1.0
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/nicksnyder/go-i18n/v2 v2.2.0

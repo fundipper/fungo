@@ -41,12 +41,6 @@ func init() {
 			"i18n": func(lang, s string) string {
 				return NewI18N().Parse(lang, s)
 			},
-			"lazy": func(s string) string {
-				return strings.ReplaceAll(s,
-					conf.NewConfig().Site.Lazyload.Old,
-					conf.NewConfig().Site.Lazyload.New,
-				)
-			},
 			"slug": func(s string) string {
 				return util.NewPath().Name(s)
 			},
