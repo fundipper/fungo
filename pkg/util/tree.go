@@ -6,6 +6,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/fundipper/fungo/conf"
 )
 
 type Tree struct{}
@@ -19,6 +21,10 @@ func (t *Tree) ReadDir(name string) ([]string, error) {
 	err := filepath.Walk(name, func(path string, info os.FileInfo, err error) error {
 		if info != nil {
 			if info.IsDir() {
+				return nil
+			}
+
+			if filepath.Ext(path) != conf.SUFFIX_MD {
 				return nil
 			}
 

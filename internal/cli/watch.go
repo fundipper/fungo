@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
 	"strings"
 	"syscall"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/fundipper/fungo/conf"
+	"github.com/fundipper/fungo/internal/x/parse"
 	"github.com/fundipper/fungo/pkg/cache"
 	"github.com/fundipper/fungo/pkg/util"
 )
@@ -63,12 +63,12 @@ func (w *Watch) Run() {
 	_ = watcher.Add(conf.THEME_TEMPLATES)
 
 	for _, v := range conf.NewConfig().Static {
-		path := conf.THEME_ASSETS
-		if !strings.HasSuffix(path, v.Name) {
-			path = conf.CONTENT_MEDIA
-		}
-
 		for _, item := range v.Subtree {
+			path := conf.THEME_ASSETS
+			if !strings.HasSuffix(path, v.Name) {
+				path = conf.CONTENT_MEDIA
+			}
+
 			path = fmt.Sprintf("%s/%s", path, item)
 			_ = watcher.Add(path)
 		}
@@ -80,10 +80,11 @@ func (w *Watch) Run() {
 			continue
 		}
 		for item := range route {
-			dir := strings.TrimPrefix(item, "/")
-
-			path := fmt.Sprintf(conf.CONTENT_MD, filepath.Dir(dir))
-			_ = watcher.Add(path)
+			key := parse.NewKey().Path(item)
+			path, ok := cache.NewString().Get(key)
+			if ok {
+				_ = watcher.Add(path)
+			}
 		}
 	}
 
@@ -93,10 +94,11 @@ func (w *Watch) Run() {
 			continue
 		}
 		for item := range route {
-			dir := strings.TrimPrefix(item, "/")
-
-			path := fmt.Sprintf(conf.CONTENT_MD, filepath.Dir(dir))
-			_ = watcher.Add(path)
+			key := parse.NewKey().Path(item)
+			path, ok := cache.NewString().Get(key)
+			if ok {
+				_ = watcher.Add(path)
+			}
 		}
 	}
 
@@ -106,10 +108,11 @@ func (w *Watch) Run() {
 			continue
 		}
 		for item := range route {
-			dir := strings.TrimPrefix(item, "/")
-
-			path := fmt.Sprintf(conf.CONTENT_MD, filepath.Dir(dir))
-			_ = watcher.Add(path)
+			key := parse.NewKey().Path(item)
+			path, ok := cache.NewString().Get(key)
+			if ok {
+				_ = watcher.Add(path)
+			}
 		}
 	}
 

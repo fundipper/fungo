@@ -16,6 +16,10 @@ func (k *Key) Content(route string) string {
 	return fmt.Sprintf("%s:%s", conf.MESSAGE_CONTENT, route)
 }
 
+func (k *Key) Path(route string) string {
+	return fmt.Sprintf("%s:%s", conf.MESSAGE_PATH, route)
+}
+
 func (k *Key) TOC(route string) string {
 	return fmt.Sprintf("%s:%s", conf.MESSAGE_TOC, route)
 }

@@ -16,6 +16,7 @@ const (
 	CONTENT_MD    = "content/%s.md"
 
 	MESSAGE_CONTENT  = "content"
+	MESSAGE_PATH     = "path"
 	MESSAGE_TOC      = "toc"
 	META_CATALOG     = "catalog"
 	META_ARCHIVE     = "archive"

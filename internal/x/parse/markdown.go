@@ -3,7 +3,6 @@ package parse
 import (
 	"errors"
 	"fmt"
-	"path/filepath"
 	"strings"
 	"time"
 
@@ -26,10 +25,6 @@ func NewMarkdown(model *conf.Model) *Markdown {
 }
 
 func (m *Markdown) Parse(path string) error {
-	if filepath.Ext(path) != conf.SUFFIX_MD {
-		return nil
-	}
-
 	source, err := util.NewTree().ReadFile(path)
 	if err != nil {
 		return err
@@ -62,15 +57,22 @@ func (m *Markdown) Parse(path string) error {
 		slug = mx[conf.META_SLUG].(string)
 	}
 
-	path = strings.TrimPrefix(path, conf.PREFIX_CONTENT)
+	dir := strings.TrimPrefix(path, conf.PREFIX_CONTENT)
 	if m.Model.Root {
-		path = strings.TrimPrefix(path, fmt.Sprintf(conf.PREFIX_PAGE, m.Model.Name))
+		dir = strings.TrimPrefix(path, fmt.Sprintf(conf.PREFIX_PAGE, m.Model.Name))
 	}
-	route := NewPath().Route(lang, path, slug)
+	route := NewPath().Route(lang, dir, slug)
 
 	// set content
 	_ = cache.NewString().Set(NewKey().Content(route), content.String())
+
+	// set path
+	_ = cache.NewString().Set(NewKey().Path(route), path)
+
+	// set route
 	_ = cache.NewSet().Push(m.Model.Name, route)
+
+	// set meta
 	_ = cache.NewHash().Set(route, mx)
 
 	// set toc
