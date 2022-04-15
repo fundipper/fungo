@@ -12,14 +12,16 @@ import (
 var bundle *i18n.Bundle
 
 func init() {
-	if conf.PARSE_STATE {
-		bundle = i18n.NewBundle(language.English)
-		bundle.RegisterUnmarshalFunc(conf.CONFIG_TYPE, toml.Unmarshal)
+	if !conf.PARSE_STATE {
+		return
+	}
 
-		for _, v := range conf.NewConfig().I18N {
-			path := fmt.Sprintf("%s/%s", conf.THEME_I18N, v.Path)
-			NewI18N().Bundle.MustLoadMessageFile(path)
-		}
+	bundle = i18n.NewBundle(language.English)
+	bundle.RegisterUnmarshalFunc(conf.CONFIG_TYPE, toml.Unmarshal)
+
+	for _, v := range conf.NewConfig().I18N {
+		path := fmt.Sprintf("%s/%s", conf.THEME_I18N, v.Path)
+		NewI18N().Bundle.MustLoadMessageFile(path)
 	}
 }
 

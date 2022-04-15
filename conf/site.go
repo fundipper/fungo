@@ -13,15 +13,14 @@ type Site struct {
 	Theme    string
 	Markdown struct {
 		Highlighting string
-		Lazyload     struct {
-			Class struct {
-				Key   string
-				Value string
-			}
-			Data struct {
-				Key   string
-				Value string
-			}
+		Image        struct {
+			Source    string
+			Target    string
+			Attribute map[string]string
+		}
+		Video []struct {
+			Host string
+			Path string
 		}
 	}
 	Sitemap struct {

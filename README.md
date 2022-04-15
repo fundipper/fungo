@@ -19,7 +19,6 @@ docker
 
     docker pull fundipper/fungo
 
-    
 # command
 
 fungo is easy to use, only have 5 commands.
@@ -114,9 +113,11 @@ how to use fungo ? see [https://fungo.dev/doc/overview/](https://fungo.dev/doc/o
 
   - [x] Highlighting
 
-  - [x] Lazyload
-
   - [x] Emoji
+
+  - [x] Image Lazyload
+
+  - [x] Video Embed
 
 - [x] Feeds
 

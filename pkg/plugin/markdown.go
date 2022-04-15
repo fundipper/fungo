@@ -6,6 +6,7 @@ import (
 	toc "github.com/abhinav/goldmark-toc"
 	"github.com/fundipper/fungo/conf"
 	images "github.com/fundipper/goldmark-images"
+	videos "github.com/fundipper/goldmark-videos"
 	"github.com/yuin/goldmark"
 	emoji "github.com/yuin/goldmark-emoji"
 	highlighting "github.com/yuin/goldmark-highlighting"
@@ -19,32 +20,41 @@ import (
 var md goldmark.Markdown
 
 func init() {
-	if conf.PARSE_STATE {
-		md = goldmark.New(
-			goldmark.WithExtensions(
-				extension.GFM,
-				emoji.Emoji,
-				meta.Meta,
-				images.NewExtender(func(src string) (string, map[string]string) {
-					return conf.NewSite().Markdown.Lazyload.Data.Value,
-						map[string]string{
-							conf.NewSite().Markdown.Lazyload.Class.Key: conf.NewSite().Markdown.Lazyload.Class.Value,
-							conf.NewSite().Markdown.Lazyload.Data.Key:  src,
-						}
-				}),
-				highlighting.NewHighlighting(
-					highlighting.WithStyle(conf.NewConfig().Site.Markdown.Highlighting),
-				),
-			),
-			goldmark.WithParserOptions(
-				parser.WithAutoHeadingID(),
-			),
-			goldmark.WithRendererOptions(
-				html.WithHardWraps(),
-				html.WithXHTML(),
-			),
-		)
+	if !conf.PARSE_STATE {
+		return
 	}
+
+	options := []videos.Option{}
+	for _, v := range conf.NewConfig().Site.Markdown.Video {
+		options = append(options, videos.Option{
+			Host: v.Host,
+			Path: v.Path,
+		})
+	}
+
+	md = goldmark.New(
+		goldmark.WithExtensions(
+			extension.GFM,
+			emoji.Emoji,
+			meta.Meta,
+			highlighting.NewHighlighting(
+				highlighting.WithStyle(conf.NewConfig().Site.Markdown.Highlighting),
+			),
+			videos.NewExtender(options...),
+			images.NewExtender(
+				conf.NewConfig().Site.Markdown.Image.Source,
+				conf.NewConfig().Site.Markdown.Image.Target,
+				conf.NewConfig().Site.Markdown.Image.Attribute,
+			),
+		),
+		goldmark.WithParserOptions(
+			parser.WithAutoHeadingID(),
+		),
+		goldmark.WithRendererOptions(
+			html.WithHardWraps(),
+			html.WithXHTML(),
+		),
+	)
 }
 
 type Markdown struct{}

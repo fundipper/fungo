@@ -16,41 +16,43 @@ import (
 var t = template.New(conf.THEME_ROOT)
 
 func init() {
-	if conf.PARSE_STATE {
-		option := template.FuncMap{
-			"toUpper": strings.ToUpper,
-			"toLower": strings.ToLower,
-			"add": func(a, b int) int {
-				return a + b
-			},
-			"subtract": func(a, b int) int {
-				return a - b
-			},
-			"multiply": func(a, b int) int {
-				return a * b
-			},
-			"divide": func(a, b int) int {
-				return a / b
-			},
-			"remainder": func(a, b int) int {
-				return a % b
-			},
-			"safe": func(s string) interface{} {
-				return template.HTML(s)
-			},
-			"i18n": func(lang, s string) string {
-				return NewI18N().Parse(lang, s)
-			},
-			"slug": func(s string) string {
-				return util.NewPath().Name(s)
-			},
-		}
+	if !conf.PARSE_STATE {
+		return
+	}
 
-		var err error
-		t, err = NewHTML().Template.Funcs(option).ParseGlob(conf.THEME_HTML)
-		if err != nil {
-			log.Fatal(err)
-		}
+	option := template.FuncMap{
+		"toUpper": strings.ToUpper,
+		"toLower": strings.ToLower,
+		"add": func(a, b int) int {
+			return a + b
+		},
+		"subtract": func(a, b int) int {
+			return a - b
+		},
+		"multiply": func(a, b int) int {
+			return a * b
+		},
+		"divide": func(a, b int) int {
+			return a / b
+		},
+		"remainder": func(a, b int) int {
+			return a % b
+		},
+		"safe": func(s string) interface{} {
+			return template.HTML(s)
+		},
+		"i18n": func(lang, s string) string {
+			return NewI18N().Parse(lang, s)
+		},
+		"slug": func(s string) string {
+			return util.NewPath().Name(s)
+		},
+	}
+
+	var err error
+	t, err = NewHTML().Template.Funcs(option).ParseGlob(conf.THEME_HTML)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 
