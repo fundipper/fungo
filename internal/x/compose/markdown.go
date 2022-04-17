@@ -69,7 +69,6 @@ func (m *Markdown) List(model string) *Catalog {
 }
 
 func (m *Markdown) Item(path string) *Markdown {
-
 	meta, ok := cache.NewHash().Get(path)
 	if !ok {
 		panic(conf.ERROR_META)

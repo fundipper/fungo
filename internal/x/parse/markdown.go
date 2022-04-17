@@ -102,30 +102,45 @@ func (m *Markdown) Parse(path string) error {
 		_ = cache.NewString().Set(NewKey().Date(route), t.String())
 
 		archive := NewPath().Archive(lang, fmt.Sprintf("%04d%02d", t.Year(), t.Month()))
+		// set route
 		_ = cache.NewSet().Push(conf.META_ARCHIVE, archive)
+		// set catalog
 		_ = cache.NewList().Push(archive, route)
+		// set template
+		_ = cache.NewString().Set(archive, conf.META_ARCHIVE)
 	}
 
 	// set category
 	if mx[conf.META_CATEGORY] != nil {
 		category := NewPath().Category(lang, mx[conf.META_CATEGORY].(string))
+		// set route
 		_ = cache.NewSet().Push(conf.META_CATEGORY, category)
+		// set catalog
 		_ = cache.NewList().Push(category, route)
+		// set template
+		_ = cache.NewString().Set(category, conf.META_CATEGORY)
 	}
 
 	// set tag
 	if mx[conf.META_TAG] != nil {
 		for _, v := range mx[conf.META_TAG].([]interface{}) {
 			tag := NewPath().Tag(lang, v.(string))
+			// set route
 			_ = cache.NewSet().Push(conf.META_TAG, tag)
+			// set catalog
 			_ = cache.NewList().Push(tag, route)
+			// set template
+			_ = cache.NewString().Set(tag, conf.META_TAG)
 		}
 	}
 
 	// set catalog
 	catalog := NewPath().Catalog(lang, m.Model.Name)
+	// set route
 	_ = cache.NewSet().Push(conf.META_CATALOG, catalog)
+	// set catalog
 	_ = cache.NewList().Push(catalog, route)
-
+	// set tempalte
+	_ = cache.NewString().Set(catalog, m.Model.Template)
 	return nil
 }

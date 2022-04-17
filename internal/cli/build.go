@@ -73,12 +73,17 @@ func (b *Build) Run() {
 			continue
 		}
 		for item := range route {
+			template, ok := cache.NewString().Get(item)
+			if !ok {
+				continue
+			}
+
 			wg.Add(1)
 			go func(model, path string) {
 				defer wg.Done()
 
 				_ = message.NewCatalog(model).Build(path)
-			}(v, item)
+			}(template, item)
 		}
 	}
 

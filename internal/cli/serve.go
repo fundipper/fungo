@@ -60,7 +60,12 @@ func (s *Serve) Run() {
 			continue
 		}
 		for item := range route {
-			r.GET(item, message.NewCatalog(v).Serve)
+			tempalte, ok := cache.NewString().Get(item)
+			if !ok {
+				continue
+			}
+
+			r.GET(item, message.NewCatalog(tempalte).Serve)
 		}
 	}
 

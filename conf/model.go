@@ -6,15 +6,16 @@ import (
 
 type (
 	Model struct {
-		Name    string
-		Route   string
-		Path    string
-		Action  string
-		Size    int
-		Catalog bool
-		Root    bool
-		Sidebar []*Node
-		Subtree []string
+		Name     string
+		Route    string
+		Path     string
+		Action   string
+		Template string
+		Size     int
+		Catalog  bool
+		Root     bool
+		Sidebar  []*Node
+		Subtree  []string
 	}
 
 	Node struct {

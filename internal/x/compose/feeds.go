@@ -31,13 +31,27 @@ func (f *Feeds) Generate(name string) (string, error) {
 
 	data := []*plugin.Feeds{}
 	for _, v := range *result {
+		var title string
+		if v.Meta[conf.META_TITLE] != nil {
+			title = v.Meta[conf.META_TITLE].(string)
+		}
+
+		var description string
+		if v.Meta[conf.META_DESCRIPTION] != nil {
+			description = v.Meta[conf.META_DESCRIPTION].(string)
+		}
+
+		var author string
+		if v.Meta[conf.META_AUTHOR] != nil {
+			author = v.Meta[conf.META_AUTHOR].(string)
+		}
 		item := &plugin.Feeds{
-			Title:   v.Meta[conf.META_TITLE].(string),
+			Title:   title,
 			Link:    fmt.Sprintf("%s%s", conf.NewConfig().Site.Origin, v.Name),
-			Summary: v.Meta[conf.META_DESCRIPTION].(string),
+			Summary: description,
 			Created: v.Date,
 			Author: &plugin.Author{
-				Name: v.Meta[conf.META_AUTHOR].(string),
+				Name: author,
 			},
 		}
 
