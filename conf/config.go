@@ -53,7 +53,7 @@ const (
 
 	ROOT_TOML      = "config.toml"
 	PREFIX_CONTENT = "content/"
-	PREFIX_PAGE    = "%s/"
+	PREFIX_PAGE    = "content/%s/"
 
 	SITEMAP_XML = "%s/sitemap/%s.xml"
 	SOURCE_YAML = "source/%s.yaml"
