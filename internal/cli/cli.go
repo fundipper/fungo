@@ -3,9 +3,8 @@ package cli
 import "sync"
 
 const (
-	_VERSION = "v1.0.0"
+	_VERSION = "v0.2.4"
 	_SERVER  = "server run on http://localhost%s"
-	_BUILD   = "build file to `public` successed"
 	_BANNER  = `
     ____                                
    / __/  __  __   ____    ____ _  ____ 

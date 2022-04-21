@@ -19,10 +19,10 @@ type (
 	}
 
 	Node struct {
-		Number string
-		Name   string
-		Route  string
-		Node   []*Node
+		Number string  `json:"number,omitempty"`
+		Name   string  `json:"name,omitempty"`
+		Route  string  `json:"route,omitempty"`
+		Node   []*Node `json:"node,omitempty"`
 	}
 )
 

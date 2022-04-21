@@ -108,6 +108,6 @@ func (b *Build) Run() {
 	_ = copy.Copy(conf.CONTENT_MEDIA, conf.PUBLIC_ASSETS)
 	_ = copy.Copy(conf.THEME_ASSETS, conf.PUBLIC_ASSETS)
 
-	fmt.Println(_BUILD)
+	fmt.Println("build file successed")
 	wg.Wait()
 }

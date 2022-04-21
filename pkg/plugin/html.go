@@ -1,6 +1,7 @@
 package plugin
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"io"
@@ -23,6 +24,13 @@ func init() {
 	option := template.FuncMap{
 		"toUpper": strings.ToUpper,
 		"toLower": strings.ToLower,
+		"toJSON": func(v interface{}) string {
+			body, err := json.Marshal(v)
+			if err != nil {
+				return err.Error()
+			}
+			return string(body)
+		},
 		"add": func(a, b int) int {
 			return a + b
 		},
