@@ -12,8 +12,11 @@ type Site struct {
 	Slogan   string
 	Theme    string
 	Markdown struct {
-		Highlighting string
-		Image        struct {
+		Highlighting struct {
+			Theme      string
+			LineNumber bool
+		}
+		Image struct {
 			Source    string
 			Target    string
 			Attribute map[string]string

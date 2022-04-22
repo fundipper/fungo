@@ -4,6 +4,7 @@ import (
 	"bytes"
 
 	toc "github.com/abhinav/goldmark-toc"
+	htmls "github.com/alecthomas/chroma/formatters/html"
 	"github.com/fundipper/fungo/conf"
 	images "github.com/fundipper/goldmark-images"
 	videos "github.com/fundipper/goldmark-videos"
@@ -38,7 +39,10 @@ func init() {
 			emoji.Emoji,
 			meta.Meta,
 			highlighting.NewHighlighting(
-				highlighting.WithStyle(conf.NewConfig().Site.Markdown.Highlighting),
+				highlighting.WithStyle(conf.NewConfig().Site.Markdown.Highlighting.Theme),
+				highlighting.WithFormatOptions(
+					htmls.WithLineNumbers(conf.NewConfig().Site.Markdown.Highlighting.LineNumber),
+				),
 			),
 			videos.NewExtender(options...),
 			images.NewExtender(
