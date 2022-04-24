@@ -105,7 +105,7 @@ func (b *Build) Run() {
 		_, _ = message.NewFeeds(conf.NewConfig().Site.Feeds.Action).Build(item)
 	}
 
-	_ = copy.Copy(conf.CONTENT_MEDIA, conf.PUBLIC_ASSETS)
+	_ = copy.Copy(conf.CONTENT_MEDIA, conf.PUBLIC_MEIDA)
 	_ = copy.Copy(conf.THEME_ASSETS, conf.PUBLIC_ASSETS)
 
 	fmt.Println("build file successed")
