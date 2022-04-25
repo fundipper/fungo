@@ -7,6 +7,7 @@ import (
 	htmls "github.com/alecthomas/chroma/formatters/html"
 	"github.com/fundipper/fungo/conf"
 	images "github.com/fundipper/goldmark-images"
+	links "github.com/fundipper/goldmark-links"
 	videos "github.com/fundipper/goldmark-videos"
 	"github.com/yuin/goldmark"
 	emoji "github.com/yuin/goldmark-emoji"
@@ -25,14 +26,6 @@ func init() {
 		return
 	}
 
-	options := []videos.Option{}
-	for _, v := range conf.NewConfig().Site.Markdown.Video {
-		options = append(options, videos.Option{
-			Host: v.Host,
-			Path: v.Path,
-		})
-	}
-
 	md = goldmark.New(
 		goldmark.WithExtensions(
 			extension.GFM,
@@ -44,11 +37,18 @@ func init() {
 					htmls.WithLineNumbers(conf.NewConfig().Site.Markdown.Highlighting.LineNumber),
 				),
 			),
-			videos.NewExtender(options...),
 			images.NewExtender(
 				conf.NewConfig().Site.Markdown.Image.Source,
 				conf.NewConfig().Site.Markdown.Image.Target,
 				conf.NewConfig().Site.Markdown.Image.Attribute,
+			),
+			links.NewExtender(
+				conf.NewConfig().Site.Markdown.Link.Source,
+				conf.NewSite().Markdown.Link.Attribute,
+			),
+			videos.NewExtender(
+				conf.NewConfig().Site.Markdown.Video.Source,
+				conf.NewConfig().Site.Markdown.Video.Attribute,
 			),
 		),
 		goldmark.WithParserOptions(

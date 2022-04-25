@@ -21,9 +21,13 @@ type Site struct {
 			Target    string
 			Attribute map[string]string
 		}
-		Video []struct {
-			Host string
-			Path string
+		Link struct {
+			Source    map[string]bool
+			Attribute map[string]string
+		}
+		Video struct {
+			Source    map[string]string
+			Attribute map[string]string
 		}
 	}
 	Sitemap struct {

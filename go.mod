@@ -9,16 +9,17 @@ require (
 	github.com/beevik/etree v1.1.0
 	github.com/dgraph-io/ristretto v0.1.0
 	github.com/fatih/color v1.13.0
-	github.com/fsnotify/fsnotify v1.5.1
-	github.com/fundipper/goldmark-images v0.1.1
-	github.com/fundipper/goldmark-videos v0.1.0
+	github.com/fsnotify/fsnotify v1.5.3
+	github.com/fundipper/goldmark-images v0.1.2
+	github.com/fundipper/goldmark-links v0.1.0
+	github.com/fundipper/goldmark-videos v0.1.1
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
 	github.com/otiai10/copy v1.7.0
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.11.0
-	github.com/yuin/goldmark v1.4.11
+	github.com/yuin/goldmark v1.4.12
 	github.com/yuin/goldmark-emoji v1.0.1
 	github.com/yuin/goldmark-highlighting v0.0.0-20220208100518-594be1970594
 	github.com/yuin/goldmark-meta v1.1.0
