@@ -10,7 +10,6 @@ import (
 	images "github.com/fundipper/goldmark-images"
 	links "github.com/fundipper/goldmark-links"
 	videos "github.com/fundipper/goldmark-videos"
-	pikchr "github.com/jchenry/goldmark-pikchr"
 	mathjax "github.com/litao91/goldmark-mathjax"
 	"github.com/yuin/goldmark"
 	emoji "github.com/yuin/goldmark-emoji"
@@ -68,9 +67,6 @@ func init() {
 	}
 	if mx.State.Mermaid {
 		ext = append(ext, &mermaid.Extender{})
-	}
-	if mx.State.Pikchr {
-		ext = append(ext, &pikchr.Extender{})
 	}
 
 	// highlighting

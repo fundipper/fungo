@@ -24,7 +24,6 @@ type Site struct {
 			Typographer    bool
 			Mathjax        bool
 			Mermaid        bool
-			Pikchr         bool
 		}
 		Highlighting struct {
 			State      bool
