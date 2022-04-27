@@ -12,20 +12,38 @@ type Site struct {
 	Slogan   string
 	Theme    string
 	Markdown struct {
+		State struct {
+			GFM            bool
+			Table          bool
+			Strikethrough  bool
+			Linkify        bool
+			TaskList       bool
+			Emoji          bool
+			DefinitionList bool
+			Footnote       bool
+			Typographer    bool
+			Mathjax        bool
+			Mermaid        bool
+			Pikchr         bool
+		}
 		Highlighting struct {
+			State      bool
 			Theme      string
 			LineNumber bool
 		}
 		Image struct {
+			State     bool
 			Source    string
 			Target    string
 			Attribute map[string]string
 		}
 		Link struct {
+			State     bool
 			Source    map[string]bool
 			Attribute map[string]string
 		}
 		Video struct {
+			State     bool
 			Source    map[string]string
 			Attribute map[string]string
 		}

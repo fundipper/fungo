@@ -3,12 +3,15 @@ package plugin
 import (
 	"bytes"
 
+	mermaid "github.com/abhinav/goldmark-mermaid"
 	toc "github.com/abhinav/goldmark-toc"
 	htmls "github.com/alecthomas/chroma/formatters/html"
 	"github.com/fundipper/fungo/conf"
 	images "github.com/fundipper/goldmark-images"
 	links "github.com/fundipper/goldmark-links"
 	videos "github.com/fundipper/goldmark-videos"
+	pikchr "github.com/jchenry/goldmark-pikchr"
+	mathjax "github.com/litao91/goldmark-mathjax"
 	"github.com/yuin/goldmark"
 	emoji "github.com/yuin/goldmark-emoji"
 	highlighting "github.com/yuin/goldmark-highlighting"
@@ -26,31 +29,87 @@ func init() {
 		return
 	}
 
+	ext := []goldmark.Extender{}
+	ext = append(ext, meta.Meta)
+
+	mx := conf.NewConfig().Site.Markdown
+	// state gfm
+	if mx.State.GFM {
+		ext = append(ext, extension.GFM)
+	} else {
+		if mx.State.Table {
+			ext = append(ext, extension.Table)
+		}
+		if mx.State.Strikethrough {
+			ext = append(ext, extension.Strikethrough)
+		}
+		if mx.State.Linkify {
+			ext = append(ext, extension.Linkify)
+		}
+		if mx.State.TaskList {
+			ext = append(ext, extension.TaskList)
+		}
+	}
+	// state other
+	if mx.State.Emoji {
+		ext = append(ext, emoji.Emoji)
+	}
+	if mx.State.DefinitionList {
+		ext = append(ext, extension.DefinitionList)
+	}
+	if mx.State.Footnote {
+		ext = append(ext, extension.Footnote)
+	}
+	if mx.State.Typographer {
+		ext = append(ext, extension.Typographer)
+	}
+	if mx.State.Mathjax {
+		ext = append(ext, mathjax.MathJax)
+	}
+	if mx.State.Mermaid {
+		ext = append(ext, &mermaid.Extender{})
+	}
+	if mx.State.Pikchr {
+		ext = append(ext, &pikchr.Extender{})
+	}
+
+	// highlighting
+	if mx.Highlighting.State {
+		ext = append(ext, highlighting.NewHighlighting(
+			highlighting.WithStyle(mx.Highlighting.Theme),
+			highlighting.WithFormatOptions(
+				htmls.WithLineNumbers(mx.Highlighting.LineNumber),
+			),
+		))
+	}
+
+	// images
+	if mx.Image.State {
+		ext = append(ext, images.NewExtender(
+			mx.Image.Source,
+			mx.Image.Target,
+			mx.Image.Attribute,
+		))
+	}
+
+	// links
+	if mx.Link.State {
+		ext = append(ext, links.NewExtender(
+			mx.Link.Source,
+			conf.NewSite().Markdown.Link.Attribute,
+		))
+	}
+
+	// videos
+	if mx.Video.State {
+		ext = append(ext, videos.NewExtender(
+			mx.Video.Source,
+			mx.Video.Attribute,
+		))
+	}
+
 	md = goldmark.New(
-		goldmark.WithExtensions(
-			extension.GFM,
-			emoji.Emoji,
-			meta.Meta,
-			highlighting.NewHighlighting(
-				highlighting.WithStyle(conf.NewConfig().Site.Markdown.Highlighting.Theme),
-				highlighting.WithFormatOptions(
-					htmls.WithLineNumbers(conf.NewConfig().Site.Markdown.Highlighting.LineNumber),
-				),
-			),
-			images.NewExtender(
-				conf.NewConfig().Site.Markdown.Image.Source,
-				conf.NewConfig().Site.Markdown.Image.Target,
-				conf.NewConfig().Site.Markdown.Image.Attribute,
-			),
-			links.NewExtender(
-				conf.NewConfig().Site.Markdown.Link.Source,
-				conf.NewSite().Markdown.Link.Attribute,
-			),
-			videos.NewExtender(
-				conf.NewConfig().Site.Markdown.Video.Source,
-				conf.NewConfig().Site.Markdown.Video.Attribute,
-			),
-		),
+		goldmark.WithExtensions(ext...),
 		goldmark.WithParserOptions(
 			parser.WithAutoHeadingID(),
 		),
