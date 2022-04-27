@@ -15,7 +15,6 @@ require (
 	github.com/fundipper/goldmark-links v0.1.0
 	github.com/fundipper/goldmark-videos v0.1.2
 	github.com/go-git/go-git/v5 v5.4.2
-	github.com/jchenry/goldmark-pikchr v0.0.2
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/litao91/goldmark-mathjax v0.0.0-20210217064022-a43cf739a50f
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
@@ -38,7 +37,6 @@ require (
 	github.com/dlclark/regexp2 v1.4.0 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
-	github.com/gebv/pikchr v1.0.2 // indirect
 	github.com/go-git/gcfg v1.5.0 // indirect
 	github.com/go-git/go-billy/v5 v5.3.1 // indirect
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b // indirect

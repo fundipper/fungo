@@ -102,8 +102,6 @@ github.com/fundipper/goldmark-links v0.1.0 h1:T8k1+Utk/zirAgasOInXAaIEnOjtGkZQAW
 github.com/fundipper/goldmark-links v0.1.0/go.mod h1:e+zrEj9H4lRpN96WDuT6Uk3CjFDRJJi4isKMYbUzvBI=
 github.com/fundipper/goldmark-videos v0.1.2 h1:Sb3QV7DS92+qjxZCuVBHaC6GnsdX8srJdcBzdCVbM+w=
 github.com/fundipper/goldmark-videos v0.1.2/go.mod h1:+zhIP/gVxAR+btq4mwX5rDKFDSBnd81nM0ulhB6hOuI=
-github.com/gebv/pikchr v1.0.2 h1:HiL9YJVP4M0xQNfvn0Cp4CR+SHBWFZhy9DgRVSmSAIQ=
-github.com/gebv/pikchr v1.0.2/go.mod h1:8bg+wRRHARWUW9jCI0bPWutpXqk+FhvKHReX/CYI7CA=
 github.com/gliderlabs/ssh v0.2.2 h1:6zsha5zo/TWhRhwqCD3+EarCAgZ2yN28ipRnGPnwkI0=
 github.com/gliderlabs/ssh v0.2.2/go.mod h1:U7qILu1NlMHj9FlMhZLlkCdDnU1DBEAqr0aevW3Awn0=
 github.com/go-git/gcfg v1.5.0 h1:Q5ViNfGF8zFgyJWPqYwA7qGFoMTEiBmdlkcfRmpIMa4=
@@ -186,8 +184,6 @@ github.com/inconshreveable/mousetrap v1.0.0 h1:Z8tu5sraLXCXIcARxBp/8cbvlwVa7Z1NH
 github.com/inconshreveable/mousetrap v1.0.0/go.mod h1:PxqpIevigyE2G7u3NXJIT2ANytuPF1OarO4DADm73n8=
 github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 h1:BQSFePA1RWJOlocH6Fxy8MmwDt+yVQYULKfN0RoTN8A=
 github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99/go.mod h1:1lJo3i6rXxKeerYnT8Nvf0QmHCRC1n8sfWVwXF2Frvo=
-github.com/jchenry/goldmark-pikchr v0.0.2 h1:zhXIFJ9RvQhhOE6cy3MwJPuv98XuWRgwTm13rbKnEFU=
-github.com/jchenry/goldmark-pikchr v0.0.2/go.mod h1:MZmLc3MVcqyKRyx8mTbr0KTPnwGJCMNbrxaFzpCETPc=
 github.com/jessevdk/go-flags v1.5.0/go.mod h1:Fw0T6WPc1dYxT4mKEZRfG5kJhaTDP9pj1c2EWnYs/m4=
 github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod h1:6v2b51hI/fHJwM22ozAgKL4VKDeJcHhJFhtBdhmNjmU=
 github.com/jstemmer/go-junit-report v0.9.1/go.mod h1:Brl9GWCQeLvo8nXZwPNNblvFj/XSXhF0NWZEnDohbsk=
