@@ -93,33 +93,49 @@ ours [official website](https://fungo.dev/), [document](https://fungo.dev/doc/ov
 
 how to use fungo ? see [https://fungo.dev/doc/overview/](https://fungo.dev/doc/overview/)
 
-# feature
+## feature
 
 - [x] Support
 
-  - [x] Article
+  - [x] [Article](https://fungo.dev/doc/create/article/)
 
-  - [x] Page
+  - [x] [Page](https://fungo.dev/doc/create/page/)
 
-  - [x] Document
+  - [x] [Document](https://fungo.dev/doc/create/document/)
 
-  - [x] Customize
+  - [x] [Customize](https://fungo.dev/doc/create/customize/)
 
-  - [x] I18N
+  - [x] [I18N](https://fungo.dev/doc/create/i18n/)
 
-- [x] Markdown
+- [x] [Markdown](https://fungo.dev/doc/config/site/markdown/)
 
   - [x] TOC
 
-  - [x] Highlighting
+  - [x] META
 
   - [x] Emoji
 
-  - [x] Image Lazyload
+  - [x] GFM (Table，Strikethrough，Linkify，TaskList)
 
-  - [x] Video Embed
+  - [x] DefinitionList
 
-- [x] Feeds
+  - [x] Footnote
+
+  - [x] Typographer
+
+  - [x] Mathjax
+
+  - [x] Mermaid
+
+  - [x] [Highlighting](https://fungo.dev/doc/config/site/highlighting/)
+
+  - [x] [Image Lazyload](https://fungo.dev/doc/config/site/image/)
+
+  - [x] [Link Reset](https://fungo.dev/doc/config/site/link/)
+
+  - [x] [Video Embed](https://fungo.dev/doc/config/site/video/)
+
+- [x] [Feeds](https://fungo.dev/doc/config/site/feeds/)
 
   - [x] RSS 2.0
 
@@ -127,19 +143,15 @@ how to use fungo ? see [https://fungo.dev/doc/overview/](https://fungo.dev/doc/o
 
   - [x] JSON 1.1
 
-- [x] I18N
-
-  - [x] Content
-
-  - [x] Template
-
 - [x] SEO
 
-  - [x] sitemap.xml
+  - [x] [Sitemap.xml](https://fungo.dev/doc/config/site/sitemap/)
 
-  - [x] robot.txt
+  - [x] [Robots.txt](https://fungo.dev/doc/config/site/robots/)
 
-# Thanks
+## 感谢
+
+---
 
 - Language & Framework
 
