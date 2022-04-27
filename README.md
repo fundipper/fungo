@@ -151,8 +151,6 @@ how to use fungo ? see [https://fungo.dev/doc/overview/](https://fungo.dev/doc/o
 
 ## 感谢
 
----
-
 - Language & Framework
 
   - [golang](https://go.dev/)
