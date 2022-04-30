@@ -3,7 +3,7 @@
        / /_   / / / /  / __ \  / __  / / __ \
       / __/  / /_/ /  / / / / / /_/ / / /_/ /
      /_/     \__,_/  /_/ /_/  \__, /  \____/
-                            /____/ v1.0.0
+                            /____/ v0.3.0
 
 # Overview
 
@@ -149,9 +149,9 @@ how to use fungo ? see [https://fungo.dev/doc/overview/](https://fungo.dev/doc/o
 
   - [x] [Robots.txt](https://fungo.dev/doc/config/site/robots/)
 
-## 感谢
+## Thanks
 
-- Language & Framework
+- Language & Frameworkexport GOPROXY=https://goproxy.cn
 
   - [golang](https://go.dev/)
 
