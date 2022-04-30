@@ -96,6 +96,15 @@ func (b *Build) Run() {
 		}(v, v.Route)
 	}
 
+	for _, v := range conf.NewConfig().I18N {
+		wg.Add(1)
+		go func(model *conf.Model, path string) {
+			defer wg.Done()
+
+			_ = message.NewI18N(model).Build(path)
+		}(v, v.Route)
+	}
+
 	_, _ = message.NewSitemap().BuildList()
 	for _, item := range []string{conf.MODEL_ARTICLE, conf.MODEL_DOCUMENT, conf.MODEL_PAGE, conf.MODEL_CUSTOMIZE, conf.MODEL_I18N, conf.META_CATALOG} {
 		_, _ = message.NewSitemap().Build(item)
