@@ -2,42 +2,39 @@ package cache
 
 import (
 	"fmt"
-	"sync"
+
+	set "github.com/deckarep/golang-set/v2"
 )
 
-type Set struct {
-	sync.RWMutex
-	store map[string]struct{}
-}
+type Set struct{}
 
 func NewSet() *Set {
 	return &Set{}
 }
 
-func (s *Set) Push(key string, value string) bool {
-	result, ok := s.Get(key)
+func (s *Set) Set(key string, value string) bool {
+	result, ok := NewCache().Get(s.Key(key))
 	if !ok {
-		result = map[string]struct{}{}
+		result = set.NewSet[string]()
 	}
 
-	set.Lock()
-	set.store = result
-	set.store[value] = struct{}{}
-	set.Unlock()
+	ss := result.(set.Set[string])
+	if ok := ss.Contains(value); ok {
+		return true
+	}
 
-	return s.Set(key, set.store)
+	_ = ss.Add(value)
+	return NewCache().Set(s.Key(key), result)
 }
 
-func (s *Set) Set(key string, value map[string]struct{}) bool {
-	return NewCache().Set(s.Key(key), value)
-}
-
-func (s *Set) Get(key string) (map[string]struct{}, bool) {
-	data, ok := NewCache().Get(s.Key(key))
+func (s *Set) Get(key string) ([]string, bool) {
+	result, ok := NewCache().Get(s.Key(key))
 	if !ok {
 		return nil, ok
 	}
-	return data.(map[string]struct{}), ok
+
+	ss := result.(set.Set[string])
+	return ss.ToSlice(), ok
 }
 
 func (s *Set) Key(key string) string {

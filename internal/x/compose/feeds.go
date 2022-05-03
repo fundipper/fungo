@@ -20,7 +20,10 @@ func NewFeeds(model string) *Feeds {
 }
 
 func (f *Feeds) Generate(name string) (string, error) {
-	result := NewMarkdown().List(f.Model)
+	result, err := NewMarkdown().List(f.Model, 0, conf.NewSite().Feeds.Limit)
+	if err != nil {
+		return "", err
+	}
 
 	message := &plugin.Feeds{
 		Title:   conf.NewConfig().Site.Name,
@@ -30,7 +33,7 @@ func (f *Feeds) Generate(name string) (string, error) {
 	}
 
 	data := []*plugin.Feeds{}
-	for _, v := range *result {
+	for _, v := range result {
 		var title string
 		if v.Meta[conf.META_TITLE] != nil {
 			title = v.Meta[conf.META_TITLE].(string)
@@ -56,7 +59,10 @@ func (f *Feeds) Generate(name string) (string, error) {
 		}
 
 		if conf.NewConfig().Site.Feeds.Content {
-			message := NewMarkdown().Item(v.Name)
+			message, err := NewMarkdown().Item(v.Name)
+			if err != nil {
+				continue
+			}
 
 			item.Content = message.Content
 			item.Language = message.Lang.Content

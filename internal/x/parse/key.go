@@ -31,3 +31,7 @@ func (k *Key) Date(route string) string {
 func (k *Key) Lang(route string) string {
 	return fmt.Sprintf("%s:%s", conf.META_LANG, route)
 }
+
+func (k *Key) Page(route string) string {
+	return fmt.Sprintf("%s:%s", conf.MESSAGE_PAGE, route)
+}

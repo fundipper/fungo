@@ -3,7 +3,7 @@ package cli
 import "sync"
 
 const (
-	_VERSION = "v0.3.1"
+	_VERSION = "v0.3.2"
 	_SERVER  = "server run on http://localhost%s"
 	_BANNER  = `
     ____                                

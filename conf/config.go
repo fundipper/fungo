@@ -18,6 +18,7 @@ const (
 	MESSAGE_CONTENT  = "content"
 	MESSAGE_PATH     = "path"
 	MESSAGE_TOC      = "toc"
+	MESSAGE_PAGE     = "page"
 	META_CATALOG     = "catalog"
 	META_ARCHIVE     = "archive"
 	META_CATEGORY    = "category"
@@ -72,6 +73,7 @@ const (
 	ERROR_CATALOG = "catalog is nil"
 	ERROR_EXIST   = "file is exist"
 	ERROR_MATCH   = "name not match"
+	ERROR_RANK    = "rank is nul"
 )
 
 var (

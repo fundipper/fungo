@@ -11,7 +11,6 @@ type (
 		Path     string
 		Action   string
 		Template string
-		Size     int
 		Catalog  bool
 		Root     bool
 		Sidebar  []*Node

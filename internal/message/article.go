@@ -19,9 +19,12 @@ func NewArticle(model *conf.Model) *Article {
 	}
 }
 
-func (a *Article) Serve(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	result := compose.NewMarkdown().Item(r.RequestURI)
-	err := plugin.NewHTML().Render(w, a.Model.Name, &Message{
+func (a *Article) Serve(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	result, err := compose.NewMarkdown().Item(r.RequestURI)
+	if err != nil {
+		panic(err)
+	}
+	err = plugin.NewHTML().Render(w, a.Model.Name, &Message{
 		Path:    r.RequestURI,
 		Site:    conf.NewConfig().Site,
 		Theme:   conf.NewConfig().Theme,
@@ -31,7 +34,10 @@ func (a *Article) Serve(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 }
 
 func (a *Article) Build(path string) error {
-	result := compose.NewMarkdown().Item(path)
+	result, err := compose.NewMarkdown().Item(path)
+	if err != nil {
+		panic(err)
+	}
 	return plugin.NewHTML().Export(path, a.Model.Name, &Message{
 		Path:    path,
 		Site:    conf.NewConfig().Site,

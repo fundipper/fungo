@@ -11,14 +11,10 @@ const (
 	_LIST   = "list"
 	_STRING = "string"
 	_SET    = "set"
+	_ZSET   = "zset"
 )
 
-var (
-	cache *ristretto.Cache
-	set   = &Set{
-		store: make(map[string]struct{}),
-	}
-)
+var cache *ristretto.Cache
 
 func init() {
 	var err error

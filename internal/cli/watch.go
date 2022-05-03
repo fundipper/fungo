@@ -79,7 +79,7 @@ func (w *Watch) Run() {
 		if !ok {
 			continue
 		}
-		for item := range route {
+		for _, item := range route {
 			key := parse.NewKey().Path(item)
 			path, ok := cache.NewString().Get(key)
 			if ok {
@@ -93,7 +93,7 @@ func (w *Watch) Run() {
 		if !ok {
 			continue
 		}
-		for item := range route {
+		for _, item := range route {
 			key := parse.NewKey().Path(item)
 			path, ok := cache.NewString().Get(key)
 			if ok {
@@ -107,7 +107,7 @@ func (w *Watch) Run() {
 		if !ok {
 			continue
 		}
-		for item := range route {
+		for _, item := range route {
 			key := parse.NewKey().Path(item)
 			path, ok := cache.NewString().Get(key)
 			if ok {

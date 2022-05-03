@@ -5,37 +5,69 @@ import (
 
 	"github.com/fundipper/fungo/conf"
 	"github.com/fundipper/fungo/internal/x/compose"
+	"github.com/fundipper/fungo/internal/x/parse"
+	"github.com/fundipper/fungo/pkg/cache"
 	"github.com/fundipper/fungo/pkg/plugin"
 	"github.com/julienschmidt/httprouter"
 )
 
-type Catalog struct {
-	Model string
+type Catalog struct{}
+
+func NewCatalog() *Catalog {
+	return &Catalog{}
 }
 
-func NewCatalog(model string) *Catalog {
-	return &Catalog{
-		Model: model,
+func (c *Catalog) Serve(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	key := parse.NewKey().Page(r.RequestURI)
+	data, ok := cache.NewHash().Get(key)
+	if !ok {
+		panic(ok)
 	}
-}
 
-func (c *Catalog) Serve(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	result := compose.NewMarkdown().List(r.RequestURI)
-	err := plugin.NewHTML().Render(w, c.Model, &Message{
+	option := data.(*parse.Option)
+	result, err := compose.NewMarkdown().List(option.Catalog, option.Page, conf.NewConfig().Site.Size)
+	if err != nil {
+		panic(err)
+	}
+
+	page, err := compose.NewCompute().Page(option.Catalog, option.Page)
+	if err != nil {
+		panic(err)
+	}
+	err = plugin.NewHTML().Render(w, option.Template, &Message{
 		Path:    r.RequestURI,
+		Lang:    option.Lang,
 		Site:    conf.NewConfig().Site,
 		Theme:   conf.NewConfig().Theme,
 		Catalog: result,
+		Page:    page,
 	})
 	panic(err)
 }
 
 func (c *Catalog) Build(path string) error {
-	result := compose.NewMarkdown().List(path)
-	return plugin.NewHTML().Export(path, c.Model, &Message{
+	key := parse.NewKey().Page(path)
+	data, ok := cache.NewHash().Get(key)
+	if !ok {
+		panic(ok)
+	}
+
+	option := data.(*parse.Option)
+	result, err := compose.NewMarkdown().List(option.Catalog, option.Page, conf.NewConfig().Site.Size)
+	if err != nil {
+		panic(err)
+	}
+
+	page, err := compose.NewCompute().Page(option.Catalog, option.Page)
+	if err != nil {
+		panic(err)
+	}
+	return plugin.NewHTML().Export(path, option.Template, &Message{
 		Path:    path,
+		Lang:    option.Lang,
 		Site:    conf.NewConfig().Site,
 		Theme:   conf.NewConfig().Theme,
 		Catalog: result,
+		Page:    page,
 	})
 }

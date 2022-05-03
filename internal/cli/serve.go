@@ -29,7 +29,7 @@ func (s *Serve) Run() {
 		if !ok {
 			continue
 		}
-		for item := range route {
+		for _, item := range route {
 			r.GET(item, message.NewArticle(v).Serve)
 		}
 	}
@@ -39,7 +39,7 @@ func (s *Serve) Run() {
 		if !ok {
 			continue
 		}
-		for item := range route {
+		for _, item := range route {
 			r.GET(item, message.NewDocument(v).Serve)
 		}
 	}
@@ -49,23 +49,18 @@ func (s *Serve) Run() {
 		if !ok {
 			continue
 		}
-		for item := range route {
+		for _, item := range route {
 			r.GET(item, message.NewPage(v).Serve)
 		}
 	}
-
 	for _, v := range []string{conf.META_ARCHIVE, conf.META_CATEGORY, conf.META_TAG, conf.META_CATALOG} {
 		route, ok := cache.NewSet().Get(v)
 		if !ok {
 			continue
 		}
-		for item := range route {
-			tempalte, ok := cache.NewString().Get(item)
-			if !ok {
-				continue
-			}
 
-			r.GET(item, message.NewCatalog(tempalte).Serve)
+		for _, item := range route {
+			r.GET(item, message.NewCatalog().Serve)
 		}
 	}
 

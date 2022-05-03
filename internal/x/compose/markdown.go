@@ -1,7 +1,8 @@
 package compose
 
 import (
-	"sort"
+	"errors"
+	"net/url"
 
 	"github.com/fundipper/fungo/conf"
 	"github.com/fundipper/fungo/internal/x/parse"
@@ -16,6 +17,8 @@ type (
 		Meta    map[string]interface{}
 		TOC     *TOC
 		Lang    *Lang
+		Page    *Page
+		Top     []*Markdown
 	}
 
 	TOC struct {
@@ -27,19 +30,31 @@ type (
 		State   bool
 		Content string
 	}
+
+	Page struct {
+		Index int
+		Size  int
+		Total int
+		Pre   int
+		Next  int
+		Data  []int
+		Path  string
+	}
 )
 
 func NewMarkdown() *Markdown {
 	return &Markdown{}
 }
 
-func (m *Markdown) List(model string) *Catalog {
-	data, ok := cache.NewList().Get(model)
+func (m *Markdown) List(model string, page, size int) ([]*Markdown, error) {
+	start := page*size + 1
+	end := (page + 1) * size
+	data, ok := cache.NewZset().Get(model, start, end)
 	if !ok {
-		panic(conf.ERROR_CATALOG)
+		return nil, errors.New(conf.ERROR_CATALOG)
 	}
 
-	result := Catalog{}
+	result := []*Markdown{}
 	for _, v := range data {
 		meta, ok := cache.NewHash().Get(v)
 		if !ok {
@@ -52,49 +67,63 @@ func (m *Markdown) List(model string) *Catalog {
 			continue
 		}
 
+		lang := Lang{}
 		key = parse.NewKey().Lang(v)
-		lang, ok := cache.NewString().Get(key)
+		if content, ok := cache.NewString().Get(key); ok {
+			lang.Content = content
+			lang.State = ok
+		}
+
 		result = append(result, &Markdown{
 			Name: v,
-			Meta: meta,
+			Meta: meta.(map[string]interface{}),
 			Date: date,
-			Lang: &Lang{
-				State:   ok,
-				Content: lang,
-			},
+			Lang: &lang,
 		})
 	}
-	sort.Sort(result)
-	return &result
+	return result, nil
 }
 
-func (m *Markdown) Item(path string) *Markdown {
+func (m *Markdown) Item(path string) (*Markdown, error) {
+	path, err := url.QueryUnescape(path)
+	if err != nil {
+		return nil, err
+	}
+
 	meta, ok := cache.NewHash().Get(path)
 	if !ok {
-		panic(conf.ERROR_META)
+		return nil, errors.New(conf.ERROR_META)
 	}
 
 	key := parse.NewKey().Content(path)
 	content, ok := cache.NewString().Get(key)
 	if !ok {
-		panic(conf.ERROR_CONTENT)
+		return nil, errors.New(conf.ERROR_CONTENT)
 	}
 
+	toc := TOC{}
 	key = parse.NewKey().TOC(path)
-	toc, ok1 := cache.NewString().Get(key)
-
-	key = parse.NewKey().Lang(path)
-	lang, ok2 := cache.NewString().Get(key)
-	return &Markdown{
-		Meta:    meta,
-		Content: content,
-		TOC: &TOC{
-			State:   ok1,
-			Content: toc,
-		},
-		Lang: &Lang{
-			State:   ok2,
-			Content: lang,
-		},
+	if content, ok := cache.NewString().Get(key); ok {
+		toc.Content = content
+		toc.State = ok
 	}
+
+	lang := Lang{}
+	key = parse.NewKey().Lang(path)
+	if content, ok := cache.NewString().Get(key); ok {
+		lang.Content = content
+		lang.State = ok
+	}
+
+	top, err := NewCompute().Top(path)
+	if err != nil {
+		return nil, err
+	}
+	return &Markdown{
+		Meta:    meta.(map[string]interface{}),
+		Content: content,
+		TOC:     &toc,
+		Lang:    &lang,
+		Top:     top,
+	}, nil
 }

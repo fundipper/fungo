@@ -22,7 +22,7 @@ func NewFeeds(model string) *Feeds {
 	}
 }
 
-func (f *Feeds) Serve(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (f *Feeds) Serve(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	name := filepath.Base(r.RequestURI)
 
 	result, err := compose.NewFeeds(f.Model).Generate(name)

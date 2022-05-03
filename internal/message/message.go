@@ -6,10 +6,12 @@ import (
 )
 
 type Message struct {
+	Lang    string
 	Path    string
 	Site    *conf.Site
 	Theme   *conf.Theme
 	Message *compose.Markdown
-	Catalog *compose.Catalog
+	Page    *compose.Page
+	Catalog []*compose.Markdown
 	Sidebar []*conf.Node
 }

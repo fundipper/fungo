@@ -15,11 +15,11 @@ func (s *String) Set(key, value string) bool {
 }
 
 func (s *String) Get(key string) (string, bool) {
-	conent, ok := NewCache().Get(s.Key(key))
+	result, ok := NewCache().Get(s.Key(key))
 	if !ok {
 		return "", ok
 	}
-	return conent.(string), ok
+	return result.(string), ok
 }
 
 func (s *String) Key(key string) string {

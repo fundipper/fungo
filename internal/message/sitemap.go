@@ -17,7 +17,7 @@ func NewSitemap() *Sitemap {
 	return &Sitemap{}
 }
 
-func (s *Sitemap) Serve(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (s *Sitemap) Serve(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	name := util.NewPath().Name(r.RequestURI)
 
 	result, err := compose.NewSitemap().Item(name)
@@ -36,7 +36,7 @@ func (s *Sitemap) Build(name string) (int, error) {
 	return util.NewTree().WriteFile(path, []byte(result))
 }
 
-func (s *Sitemap) ServeList(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (s *Sitemap) ServeList(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	result, err := compose.NewSitemap().List()
 	if err != nil {
 		panic(err)

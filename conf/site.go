@@ -11,6 +11,8 @@ type Site struct {
 	Name     string
 	Slogan   string
 	Theme    string
+	Size     int
+	Amount   int
 	Markdown struct {
 		State struct {
 			GFM            bool
@@ -53,6 +55,7 @@ type Site struct {
 	}
 	Feeds struct {
 		Action  string
+		Limit   int
 		Content bool
 	}
 }

@@ -52,6 +52,9 @@ func init() {
 		"i18n": func(lang, s string) string {
 			return NewI18N().Parse(lang, s)
 		},
+		"path": func(s string) string {
+			return util.NewPath().Dir(s)
+		},
 		"slug": func(s string) string {
 			return util.NewPath().Name(s)
 		},

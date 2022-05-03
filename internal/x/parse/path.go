@@ -46,6 +46,13 @@ func (p *Path) Catalog(lang, catalog string) string {
 	return fmt.Sprintf("/%s/", p.format(path))
 }
 
+func (p *Path) Page(path string, page int) string {
+	if page != 0 {
+		return fmt.Sprintf("%spage/%d/", path, page)
+	}
+	return path
+}
+
 func (p *Path) format(path string) string {
 	path = strings.ReplaceAll(path, " ", "-")
 	return strings.ToLower(path)

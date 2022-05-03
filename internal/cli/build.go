@@ -27,7 +27,7 @@ func (b *Build) Run() {
 		if !ok {
 			continue
 		}
-		for item := range route {
+		for _, item := range route {
 			wg.Add(1)
 			go func(model *conf.Model, path string) {
 				defer wg.Done()
@@ -42,7 +42,7 @@ func (b *Build) Run() {
 		if !ok {
 			continue
 		}
-		for item := range route {
+		for _, item := range route {
 			wg.Add(1)
 			go func(model *conf.Model, path string) {
 				defer wg.Done()
@@ -57,7 +57,7 @@ func (b *Build) Run() {
 		if !ok {
 			continue
 		}
-		for item := range route {
+		for _, item := range route {
 			wg.Add(1)
 			go func(model *conf.Model, path string) {
 				defer wg.Done()
@@ -72,18 +72,13 @@ func (b *Build) Run() {
 		if !ok {
 			continue
 		}
-		for item := range route {
-			template, ok := cache.NewString().Get(item)
-			if !ok {
-				continue
-			}
-
+		for _, item := range route {
 			wg.Add(1)
-			go func(model, path string) {
+			go func(path string) {
 				defer wg.Done()
 
-				_ = message.NewCatalog(model).Build(path)
-			}(template, item)
+				_ = message.NewCatalog().Build(path)
+			}(item)
 		}
 	}
 

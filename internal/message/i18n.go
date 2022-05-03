@@ -2,6 +2,7 @@ package message
 
 import (
 	"net/http"
+	"path/filepath"
 
 	"github.com/fundipper/fungo/conf"
 	"github.com/fundipper/fungo/internal/x/compose"
@@ -19,10 +20,14 @@ func NewI18N(model *conf.Model) *I18N {
 	}
 }
 
-func (i *I18N) Serve(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	result := compose.NewMarkdown().List(i.Model.Action)
-	err := plugin.NewHTML().Render(w, i.Model.Template, &Message{
+func (i *I18N) Serve(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	result, err := compose.NewMarkdown().List(i.Model.Action, 0, conf.NewConfig().Site.Size)
+	if err != nil {
+		panic(err)
+	}
+	err = plugin.NewHTML().Render(w, i.Model.Template, &Message{
 		Path:    r.RequestURI,
+		Lang:    filepath.Base(r.RequestURI),
 		Site:    conf.NewConfig().Site,
 		Theme:   conf.NewConfig().Theme,
 		Catalog: result,
@@ -31,9 +36,13 @@ func (i *I18N) Serve(w http.ResponseWriter, r *http.Request, ps httprouter.Param
 }
 
 func (i *I18N) Build(path string) error {
-	result := compose.NewMarkdown().List(i.Model.Action)
+	result, err := compose.NewMarkdown().List(i.Model.Action, 0, conf.NewSite().Size)
+	if err != nil {
+		return err
+	}
 	return plugin.NewHTML().Export(path, i.Model.Template, &Message{
 		Path:    path,
+		Lang:    filepath.Base(path),
 		Site:    conf.NewConfig().Site,
 		Theme:   conf.NewConfig().Theme,
 		Catalog: result,

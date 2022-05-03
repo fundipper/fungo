@@ -49,6 +49,7 @@ func (t *Tree) ReadFile(name string) ([]byte, error) {
 		return nil, err
 	}
 	defer f.Close()
+
 	reader := bufio.NewReader(f)
 
 	var chunk []byte

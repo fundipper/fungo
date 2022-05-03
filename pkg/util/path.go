@@ -29,9 +29,15 @@ func (p *Path) Work() (string, error) {
 }
 
 func (p *Path) Name(path string) string {
-	file := filepath.Base(path)
-	suffix := filepath.Ext(file)
-	return strings.TrimSuffix(file, suffix)
+	s := filepath.Base(path)
+	suffix := filepath.Ext(s)
+	return strings.TrimSuffix(s, suffix)
+}
+
+func (p *Path) Dir(path string) string {
+	s := filepath.Dir(path)
+	suffix := filepath.Base(path)
+	return strings.TrimSuffix(s, suffix)
 }
 
 func (p *Path) Exist(path string) bool {

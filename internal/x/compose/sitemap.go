@@ -42,7 +42,7 @@ func (s *Sitemap) Item(name string) (string, error) {
 			if !ok {
 				continue
 			}
-			for item := range route {
+			for _, item := range route {
 				result = append(result, &plugin.Sitemap{
 					Loc:        fmt.Sprintf("%s%s", s.Origin, item),
 					Lastmod:    s.Now,
@@ -57,7 +57,7 @@ func (s *Sitemap) Item(name string) (string, error) {
 			if !ok {
 				continue
 			}
-			for item := range route {
+			for _, item := range route {
 				result = append(result, &plugin.Sitemap{
 					Loc:        fmt.Sprintf("%s%s", s.Origin, item),
 					Lastmod:    s.Now,
@@ -72,7 +72,7 @@ func (s *Sitemap) Item(name string) (string, error) {
 			if !ok {
 				continue
 			}
-			for item := range route {
+			for _, item := range route {
 				result = append(result, &plugin.Sitemap{
 					Loc:        fmt.Sprintf("%s%s", s.Origin, item),
 					Lastmod:    s.Now,
@@ -105,7 +105,7 @@ func (s *Sitemap) Item(name string) (string, error) {
 			if !ok {
 				continue
 			}
-			for item := range route {
+			for _, item := range route {
 				result = append(result, &plugin.Sitemap{
 					Loc:        fmt.Sprintf("%s%s", s.Origin, item),
 					Lastmod:    s.Now,

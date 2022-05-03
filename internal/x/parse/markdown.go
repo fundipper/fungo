@@ -14,9 +14,18 @@ import (
 	"github.com/yuin/goldmark/parser"
 )
 
-type Markdown struct {
-	Model *conf.Model
-}
+type (
+	Markdown struct {
+		Model *conf.Model
+	}
+
+	Option struct {
+		Template string
+		Catalog  string
+		Lang     string
+		Page     int
+	}
+)
 
 func NewMarkdown(model *conf.Model) *Markdown {
 	return &Markdown{
@@ -70,7 +79,7 @@ func (m *Markdown) Parse(path string) error {
 	_ = cache.NewString().Set(NewKey().Path(route), path)
 
 	// set route
-	_ = cache.NewSet().Push(m.Model.Name, route)
+	_ = cache.NewSet().Set(m.Model.Name, route)
 
 	// set meta
 	_ = cache.NewHash().Set(route, mx)
@@ -90,9 +99,10 @@ func (m *Markdown) Parse(path string) error {
 		return nil
 	}
 
+	var t time.Time
 	// set archive
 	if mx[conf.META_DATE] != nil {
-		t, err := time.ParseInLocation("2006-01-02 15:04:05",
+		t, err = time.ParseInLocation("2006-01-02 15:04:05",
 			fmt.Sprintf("%s 00:00:00", mx[conf.META_DATE].(string)),
 			time.Local,
 		)
@@ -102,45 +112,85 @@ func (m *Markdown) Parse(path string) error {
 		_ = cache.NewString().Set(NewKey().Date(route), t.String())
 
 		archive := NewPath().Archive(lang, fmt.Sprintf("%04d%02d", t.Year(), t.Month()))
-		// set route
-		_ = cache.NewSet().Push(conf.META_ARCHIVE, archive)
-		// set catalog
-		_ = cache.NewList().Push(archive, route)
-		// set template
-		_ = cache.NewString().Set(archive, conf.META_ARCHIVE)
+		// set list
+		total, ok := cache.NewZset().Set(archive, route, t.Unix())
+		if ok {
+			number := total / conf.NewConfig().Site.Size
+
+			page := NewPath().Page(archive, number)
+			// set route
+			_ = cache.NewSet().Set(conf.META_ARCHIVE, page)
+			// set option
+			_ = cache.NewHash().Set(NewKey().Page(page), &Option{
+				Template: conf.META_ARCHIVE,
+				Catalog:  archive,
+				Lang:     lang,
+				Page:     number,
+			})
+		}
 	}
 
 	// set category
 	if mx[conf.META_CATEGORY] != nil {
 		category := NewPath().Category(lang, mx[conf.META_CATEGORY].(string))
-		// set route
-		_ = cache.NewSet().Push(conf.META_CATEGORY, category)
-		// set catalog
-		_ = cache.NewList().Push(category, route)
-		// set template
-		_ = cache.NewString().Set(category, conf.META_CATEGORY)
+		// set list
+		total, ok := cache.NewZset().Set(category, route, t.Unix())
+		if ok {
+			number := total / conf.NewConfig().Site.Size
+
+			page := NewPath().Page(category, number)
+			// set route
+			_ = cache.NewSet().Set(conf.META_CATEGORY, page)
+			// set option
+			_ = cache.NewHash().Set(NewKey().Page(page), &Option{
+				Template: conf.META_CATEGORY,
+				Catalog:  category,
+				Lang:     lang,
+				Page:     number,
+			})
+		}
+
 	}
 
 	// set tag
 	if mx[conf.META_TAG] != nil {
 		for _, v := range mx[conf.META_TAG].([]interface{}) {
 			tag := NewPath().Tag(lang, v.(string))
-			// set route
-			_ = cache.NewSet().Push(conf.META_TAG, tag)
-			// set catalog
-			_ = cache.NewList().Push(tag, route)
-			// set template
-			_ = cache.NewString().Set(tag, conf.META_TAG)
+			// set list
+			total, ok := cache.NewZset().Set(tag, route, t.Unix())
+			if ok {
+				number := total / conf.NewConfig().Site.Size
+
+				page := NewPath().Page(tag, number)
+				// set route
+				_ = cache.NewSet().Set(conf.META_TAG, page)
+				// set option
+				_ = cache.NewHash().Set(NewKey().Page(page), &Option{
+					Template: conf.META_TAG,
+					Catalog:  tag,
+					Lang:     lang,
+					Page:     number,
+				})
+			}
 		}
 	}
 
-	// set catalog
 	catalog := NewPath().Catalog(lang, m.Model.Name)
-	// set route
-	_ = cache.NewSet().Push(conf.META_CATALOG, catalog)
-	// set catalog
-	_ = cache.NewList().Push(catalog, route)
-	// set tempalte
-	_ = cache.NewString().Set(catalog, m.Model.Template)
+	// set list
+	total, ok := cache.NewZset().Set(catalog, route, t.Unix())
+	if ok {
+		number := total / conf.NewConfig().Site.Size
+
+		page := NewPath().Page(catalog, number)
+		// set catalog
+		_ = cache.NewSet().Set(conf.META_CATALOG, page)
+		// set option
+		_ = cache.NewHash().Set(NewKey().Page(page), &Option{
+			Template: m.Model.Template,
+			Catalog:  catalog,
+			Lang:     lang,
+			Page:     number,
+		})
+	}
 	return nil
 }

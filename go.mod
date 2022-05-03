@@ -8,9 +8,10 @@ require (
 	github.com/abhinav/goldmark-toc v0.2.1
 	github.com/alecthomas/chroma v0.10.0
 	github.com/beevik/etree v1.1.0
+	github.com/deckarep/golang-set/v2 v2.1.0
 	github.com/dgraph-io/ristretto v0.1.0
 	github.com/fatih/color v1.13.0
-	github.com/fsnotify/fsnotify v1.5.3
+	github.com/fsnotify/fsnotify v1.5.4
 	github.com/fundipper/goldmark-images v0.1.2
 	github.com/fundipper/goldmark-links v0.1.0
 	github.com/fundipper/goldmark-videos v0.1.2
@@ -21,6 +22,7 @@ require (
 	github.com/otiai10/copy v1.7.0
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.11.0
+	github.com/yddeng/sortedset v0.0.0-20211215061548-e84729428bbe
 	github.com/yuin/goldmark v1.4.12
 	github.com/yuin/goldmark-emoji v1.0.1
 	github.com/yuin/goldmark-highlighting v0.0.0-20220208100518-594be1970594
