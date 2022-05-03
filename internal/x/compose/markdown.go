@@ -114,16 +114,10 @@ func (m *Markdown) Item(path string) (*Markdown, error) {
 		lang.Content = content
 		lang.State = ok
 	}
-
-	top, err := NewCompute().Top(path)
-	if err != nil {
-		return nil, err
-	}
 	return &Markdown{
 		Meta:    meta.(map[string]interface{}),
 		Content: content,
 		TOC:     &toc,
 		Lang:    &lang,
-		Top:     top,
 	}, nil
 }

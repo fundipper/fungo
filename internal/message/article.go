@@ -24,6 +24,13 @@ func (a *Article) Serve(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 	if err != nil {
 		panic(err)
 	}
+
+	top, err := compose.NewCompute().Top(r.RequestURI)
+	if err != nil {
+		panic(err)
+	}
+	result.Top = top
+
 	err = plugin.NewHTML().Render(w, a.Model.Name, &Message{
 		Path:    r.RequestURI,
 		Site:    conf.NewConfig().Site,
@@ -38,6 +45,13 @@ func (a *Article) Build(path string) error {
 	if err != nil {
 		panic(err)
 	}
+
+	top, err := compose.NewCompute().Top(path)
+	if err != nil {
+		panic(err)
+	}
+	result.Top = top
+
 	return plugin.NewHTML().Export(path, a.Model.Name, &Message{
 		Path:    path,
 		Site:    conf.NewConfig().Site,
