@@ -25,7 +25,7 @@ func (i *I18N) Serve(w http.ResponseWriter, r *http.Request, _ httprouter.Params
 	if err != nil {
 		panic(err)
 	}
-	err = plugin.NewHTML().Render(w, i.Model.Template, &Message{
+	err = plugin.NewHTML().Render(w, i.Model.Name, &Message{
 		Path:    r.RequestURI,
 		Lang:    filepath.Base(r.RequestURI),
 		Site:    conf.NewConfig().Site,
@@ -40,7 +40,7 @@ func (i *I18N) Build(path string) error {
 	if err != nil {
 		return err
 	}
-	return plugin.NewHTML().Export(path, i.Model.Template, &Message{
+	return plugin.NewHTML().Export(path, i.Model.Name, &Message{
 		Path:    path,
 		Lang:    filepath.Base(path),
 		Site:    conf.NewConfig().Site,
