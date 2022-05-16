@@ -2,6 +2,7 @@ package message
 
 import (
 	"net/http"
+	"net/url"
 
 	"github.com/fundipper/fungo/conf"
 	"github.com/fundipper/fungo/internal/x/compose"
@@ -18,7 +19,12 @@ func NewCatalog() *Catalog {
 }
 
 func (c *Catalog) Serve(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	key := parse.NewKey().Page(r.RequestURI)
+	path, err := url.QueryUnescape(r.RequestURI)
+	if err != nil {
+		panic(err)
+	}
+
+	key := parse.NewKey().Page(path)
 	data, ok := cache.NewHash().Get(key)
 	if !ok {
 		panic(ok)
