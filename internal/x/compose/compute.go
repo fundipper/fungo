@@ -38,7 +38,7 @@ func (c *Compute) Page(model string, index int) (*Page, error) {
 	end := index + factor
 	if start < 0 {
 		start = 0
-		if total-conf.NewSite().Size >= 0 {
+		if total-conf.NewConfig().Site.Size >= 0 {
 			end = conf.NewConfig().Site.Size
 		}
 	}

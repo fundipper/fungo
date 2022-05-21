@@ -36,7 +36,7 @@ func (i *I18N) Serve(w http.ResponseWriter, r *http.Request, _ httprouter.Params
 }
 
 func (i *I18N) Build(path string) error {
-	result, err := compose.NewMarkdown().List(i.Model.Action, 0, conf.NewSite().Size)
+	result, err := compose.NewMarkdown().List(i.Model.Action, 0, conf.NewConfig().Site.Size)
 	if err != nil {
 		return err
 	}

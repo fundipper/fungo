@@ -20,7 +20,7 @@ func NewFeeds(model string) *Feeds {
 }
 
 func (f *Feeds) Generate(name string) (string, error) {
-	result, err := NewMarkdown().List(f.Model, 0, conf.NewSite().Feeds.Limit)
+	result, err := NewMarkdown().List(f.Model, 0, conf.NewConfig().Site.Feeds.Limit)
 	if err != nil {
 		return "", err
 	}

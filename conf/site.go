@@ -1,9 +1,5 @@
 package conf
 
-import (
-	"log"
-)
-
 // Site site
 type Site struct {
 	Origin   string
@@ -58,13 +54,4 @@ type Site struct {
 		Limit   int
 		Content bool
 	}
-}
-
-func NewSite() *Site {
-	data := Site{}
-	err := v.UnmarshalKey(MODEL_SITE, &data)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return &data
 }

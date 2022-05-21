@@ -35,10 +35,7 @@ const (
 	MODEL_PAGE      = "page"
 	MODEL_I18N      = "i18n"
 	MODEL_CUSTOMIZE = "customize"
-	MODEL_STATIC    = "static"
-	MODEL_SITE      = "site"
 	MODEL_THMEM     = "theme"
-	MODEL_EXTEND    = "extend"
 
 	FEEDS_ATOM = "atom.xml"
 	FEEDS_RSS  = "rss.xml"
@@ -88,6 +85,17 @@ var (
 	THEME_TOML      string
 )
 
+type Config struct {
+	Article   []*Model
+	Customize []*Model
+	Document  []*Model
+	Page      []*Model
+	I18N      []*Model
+	Static    []*Model
+	Site      *Site
+	Theme     *Theme
+}
+
 func init() {
 	v = viper.New()
 	v.SetConfigName(CONFIG_ROOT)
@@ -99,14 +107,9 @@ func init() {
 		return
 	}
 
-	config = &Config{
-		Article:   NewModel().Article(),
-		Customize: NewModel().Customize(),
-		Document:  NewModel().Document(),
-		Page:      NewModel().Page(),
-		I18N:      NewModel().I18N(),
-		Static:    NewModel().Static(),
-		Site:      NewSite(),
+	err = v.Unmarshal(config)
+	if err != nil {
+		return
 	}
 
 	THEME_USED = fmt.Sprintf("theme/%s", config.Site.Theme)
@@ -124,19 +127,14 @@ func init() {
 		return
 	}
 
-	config.Theme = NewTheme()
-	PARSE_STATE = true
-}
+	theme := Theme{}
+	err = v.UnmarshalKey(MODEL_THMEM, &theme)
+	if err != nil {
+		return
+	}
+	config.Theme = &theme
 
-type Config struct {
-	Article   []*Model
-	Customize []*Model
-	Document  []*Model
-	Page      []*Model
-	I18N      []*Model
-	Static    []*Model
-	Site      *Site
-	Theme     *Theme
+	PARSE_STATE = true
 }
 
 func NewConfig() *Config {

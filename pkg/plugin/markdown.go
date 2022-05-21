@@ -92,7 +92,7 @@ func init() {
 	if mx.Link.State {
 		ext = append(ext, links.NewExtender(
 			mx.Link.Source,
-			conf.NewSite().Markdown.Link.Attribute,
+			conf.NewConfig().Site.Markdown.Link.Attribute,
 		))
 	}
 
