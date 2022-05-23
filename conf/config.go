@@ -2,6 +2,7 @@ package conf
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/spf13/viper"
 )
@@ -75,7 +76,7 @@ const (
 
 var (
 	v               *viper.Viper
-	config          *Config
+	config          Config
 	PARSE_STATE     bool
 	THEME_USED      string
 	THEME_I18N      string
@@ -104,11 +105,13 @@ func init() {
 
 	err := v.ReadInConfig()
 	if err != nil {
+		log.Printf("read config error: %v", err)
 		return
 	}
 
-	err = v.Unmarshal(config)
+	err = v.Unmarshal(&config)
 	if err != nil {
+		log.Printf("pasre config error: %v", err)
 		return
 	}
 
@@ -124,6 +127,7 @@ func init() {
 	v.AddConfigPath(THEME_USED)
 	err = v.MergeInConfig()
 	if err != nil {
+		log.Printf("merge config error: %v", err)
 		return
 	}
 
@@ -138,5 +142,5 @@ func init() {
 }
 
 func NewConfig() *Config {
-	return config
+	return &config
 }

@@ -90,16 +90,24 @@ func init() {
 
 	// links
 	if mx.Link.State {
+		m := map[string]bool{}
+		for _, v := range mx.Link.Source {
+			m[v] = true
+		}
 		ext = append(ext, links.NewExtender(
-			mx.Link.Source,
+			m,
 			conf.NewConfig().Site.Markdown.Link.Attribute,
 		))
 	}
 
 	// videos
 	if mx.Video.State {
+		m := map[string]string{}
+		for _, v := range mx.Video.Source {
+			m[v.Name] = v.Path
+		}
 		ext = append(ext, videos.NewExtender(
-			mx.Video.Source,
+			m,
 			mx.Video.Attribute,
 		))
 	}
