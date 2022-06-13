@@ -3,11 +3,14 @@ package conf
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/spf13/viper"
 )
 
 const (
+	COMMAND_SITE = "site"
+
 	CONFIG_ROOT  = "config"
 	CONFIG_THEME = "theme"
 	CONFIG_TYPE  = "toml"
@@ -98,6 +101,12 @@ type Config struct {
 }
 
 func init() {
+	for k, v := range os.Args {
+		if k == 1 && v == COMMAND_SITE {
+			return
+		}
+	}
+
 	v = viper.New()
 	v.SetConfigName(CONFIG_ROOT)
 	v.SetConfigType(CONFIG_TYPE)

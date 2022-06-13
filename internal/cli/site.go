@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"path/filepath"
 
 	"github.com/fundipper/fungo/conf"
@@ -22,12 +23,16 @@ func (s *Site) Create(name string) error {
 	}
 
 	path := filepath.Join(work, name)
+	fmt.Printf("clone site to %s\n", path)
+
 	err = s.Clone(path)
 	if err != nil {
 		return err
 	}
 
 	path = filepath.Join(work, name, conf.THEME_ROOT, conf.THEME_DEFAULT)
+	fmt.Printf("clone theme to %s\n", path)
+
 	return NewTheme().Clone(path)
 }
 
