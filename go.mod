@@ -1,9 +1,9 @@
 module github.com/fundipper/fungo
 
-go 1.18
+go 1.19
 
 require (
-	github.com/BurntSushi/toml v1.1.0
+	github.com/BurntSushi/toml v1.2.0
 	github.com/abhinav/goldmark-mermaid v0.1.1
 	github.com/abhinav/goldmark-toc v0.2.1
 	github.com/alecthomas/chroma v0.10.0
@@ -20,10 +20,10 @@ require (
 	github.com/litao91/goldmark-mathjax v0.0.0-20210217064022-a43cf739a50f
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
 	github.com/otiai10/copy v1.7.0
-	github.com/spf13/cobra v1.4.0
+	github.com/spf13/cobra v1.5.0
 	github.com/spf13/viper v1.12.0
-	github.com/yddeng/sortedset v0.0.0-20211215061548-e84729428bbe
-	github.com/yuin/goldmark v1.4.12
+	github.com/yddeng/sortedset v0.0.0-20220714054812-45941841aada
+	github.com/yuin/goldmark v1.4.13
 	github.com/yuin/goldmark-emoji v1.0.1
 	github.com/yuin/goldmark-highlighting v0.0.0-20220208100518-594be1970594
 	github.com/yuin/goldmark-meta v1.1.0
