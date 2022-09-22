@@ -3,9 +3,9 @@ package plugin
 import (
 	"fmt"
 
-	"github.com/BurntSushi/toml"
 	"github.com/fundipper/fungo/conf"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
+	"github.com/pelletier/go-toml/v2"
 	"golang.org/x/text/language"
 )
 
