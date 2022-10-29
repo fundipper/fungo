@@ -23,6 +23,7 @@ type (
 				Typographer    bool
 				Mathjax        bool
 				Mermaid        bool
+				Fences         bool
 			}
 			Highlighting struct {
 				State      bool

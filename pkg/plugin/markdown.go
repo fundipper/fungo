@@ -11,6 +11,7 @@ import (
 	links "github.com/fundipper/goldmark-links"
 	videos "github.com/fundipper/goldmark-videos"
 	mathjax "github.com/litao91/goldmark-mathjax"
+	fences "github.com/stefanfritsch/goldmark-fences"
 	"github.com/yuin/goldmark"
 	emoji "github.com/yuin/goldmark-emoji"
 	highlighting "github.com/yuin/goldmark-highlighting"
@@ -68,6 +69,9 @@ func init() {
 	if mx.State.Mermaid {
 		ext = append(ext, &mermaid.Extender{})
 	}
+	if mx.State.Fences {
+		ext = append(ext, &fences.Extender{})
+	}
 
 	// highlighting
 	if mx.Highlighting.State {
@@ -116,6 +120,7 @@ func init() {
 		goldmark.WithExtensions(ext...),
 		goldmark.WithParserOptions(
 			parser.WithAutoHeadingID(),
+			parser.WithAttribute(),
 		),
 		goldmark.WithRendererOptions(
 			html.WithHardWraps(),
