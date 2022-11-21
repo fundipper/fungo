@@ -7,7 +7,7 @@
 
 # Overview
 
-[fungo](https://fungo.dev/ "fungo") is a simple and fast open-source static site generators base on golang.
+[fungo](https://fungo.dev/ "fungo") is another static blog engine base on golang.
 
 # install
 
