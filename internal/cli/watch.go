@@ -1,9 +1,9 @@
 package cli
 
 import (
-	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 	"syscall"
 
@@ -62,6 +62,13 @@ func (w *Watch) Run() {
 	_ = watcher.Add(conf.THEME_I18N)
 	_ = watcher.Add(conf.THEME_TEMPLATES)
 
+	for _, v := range conf.NewConfig().Template {
+		for _, item := range v.Subtree {
+			path := filepath.Join(conf.THEME_TEMPLATES, item)
+			_ = watcher.Add(path)
+		}
+	}
+
 	for _, v := range conf.NewConfig().Static {
 		for _, item := range v.Subtree {
 			path := conf.THEME_ASSETS
@@ -69,7 +76,7 @@ func (w *Watch) Run() {
 				path = conf.CONTENT_MEDIA
 			}
 
-			path = fmt.Sprintf("%s/%s", path, item)
+			path = filepath.Join(path, item)
 			_ = watcher.Add(path)
 		}
 	}

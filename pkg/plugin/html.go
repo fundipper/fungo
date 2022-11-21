@@ -60,10 +60,23 @@ func init() {
 		},
 	}
 
+	t = NewHTML().Template.Funcs(option)
+
 	var err error
-	t, err = NewHTML().Template.Funcs(option).ParseGlob(conf.THEME_HTML)
+	path := filepath.Join(conf.THEME_TEMPLATES, conf.THEME_HTML)
+	t, err = t.ParseGlob(path)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	for _, v := range conf.NewConfig().Template {
+		for _, item := range v.Subtree {
+			path := filepath.Join(conf.THEME_TEMPLATES, item, conf.THEME_HTML)
+			t, err = t.ParseGlob(path)
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
 	}
 }
 

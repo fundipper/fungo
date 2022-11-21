@@ -1,7 +1,7 @@
 package plugin
 
 import (
-	"fmt"
+	"path/filepath"
 
 	"github.com/fundipper/fungo/conf"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
@@ -20,7 +20,7 @@ func init() {
 	bundle.RegisterUnmarshalFunc(conf.CONFIG_TYPE, toml.Unmarshal)
 
 	for _, v := range conf.NewConfig().I18N {
-		path := fmt.Sprintf("%s/%s", conf.THEME_I18N, v.Path)
+		path := filepath.Join(conf.THEME_I18N, v.Path)
 		NewI18N().Bundle.MustLoadMessageFile(path)
 	}
 }

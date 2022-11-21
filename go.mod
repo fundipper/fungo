@@ -3,7 +3,7 @@ module github.com/fundipper/fungo
 go 1.19
 
 require (
-	github.com/abhinav/goldmark-mermaid v0.1.1
+	github.com/abhinav/goldmark-mermaid v0.2.0
 	github.com/abhinav/goldmark-toc v0.2.1
 	github.com/alecthomas/chroma v0.10.0
 	github.com/beevik/etree v1.1.0
@@ -17,12 +17,12 @@ require (
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/litao91/goldmark-mathjax v0.0.0-20210217064022-a43cf739a50f
-	github.com/nicksnyder/go-i18n/v2 v2.2.0
-	github.com/otiai10/copy v1.7.0
-	github.com/pelletier/go-toml/v2 v2.0.5
+	github.com/nicksnyder/go-i18n/v2 v2.2.1
+	github.com/otiai10/copy v1.9.0
+	github.com/pelletier/go-toml/v2 v2.0.6
 	github.com/spf13/cobra v1.6.1
-	github.com/spf13/viper v1.13.0
-	github.com/stefanfritsch/goldmark-fences v0.0.0-20221024201544-8226cd5bca69
+	github.com/spf13/viper v1.14.0
+	github.com/stefanfritsch/goldmark-fences v0.0.0-20221109095022-24cfb8a295fc
 	github.com/yddeng/sortedset v0.0.0-20220714054812-45941841aada
 	github.com/yuin/goldmark v1.5.2
 	github.com/yuin/goldmark-emoji v1.0.1
@@ -56,14 +56,14 @@ require (
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
-	github.com/spf13/afero v1.8.2 // indirect
+	github.com/spf13/afero v1.9.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
 	github.com/xanzy/ssh-agent v0.3.0 // indirect
-	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4 // indirect
-	golang.org/x/net v0.0.0-20220520000938-2e3eb7b945c2 // indirect
+	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e // indirect
+	golang.org/x/net v0.0.0-20221014081412-f15817d10f9b // indirect
 	golang.org/x/sys v0.0.0-20221010170243-090e33056c14 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect

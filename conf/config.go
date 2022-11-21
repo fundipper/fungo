@@ -85,8 +85,8 @@ var (
 	THEME_I18N      string
 	THEME_ASSETS    string
 	THEME_TEMPLATES string
-	THEME_HTML      string
 	THEME_TOML      string
+	THEME_HTML      string
 )
 
 type Config struct {
@@ -96,6 +96,7 @@ type Config struct {
 	Page      []*Model
 	I18N      []*Model
 	Static    []*Model
+	Template  []*Model
 	Site      *Site
 	Theme     *Theme
 }
@@ -128,8 +129,8 @@ func init() {
 	THEME_I18N = fmt.Sprintf("theme/%s/i18n", config.Site.Theme)
 	THEME_ASSETS = fmt.Sprintf("theme/%s/assets", config.Site.Theme)
 	THEME_TEMPLATES = fmt.Sprintf("theme/%s/templates", config.Site.Theme)
-	THEME_HTML = fmt.Sprintf("theme/%s/templates/*.html", config.Site.Theme)
 	THEME_TOML = fmt.Sprintf("theme/%s/theme.toml", config.Site.Theme)
+	THEME_HTML = "*.html"
 
 	v.SetConfigName(CONFIG_THEME)
 	v.SetConfigType(CONFIG_TYPE)
