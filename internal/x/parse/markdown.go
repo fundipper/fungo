@@ -3,7 +3,6 @@ package parse
 import (
 	"errors"
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/fundipper/fungo/conf"
@@ -56,21 +55,22 @@ func (m *Markdown) Parse(path string) error {
 	}
 
 	// set route
-	var lang string
-	if mx[conf.META_LANG] != nil {
-		lang = mx[conf.META_LANG].(string)
+	lang, ok := mx[conf.META_LANG]
+	if !ok {
+		lang = ""
 	}
 
-	var slug string
-	if mx[conf.META_SLUG] != nil {
-		slug = mx[conf.META_SLUG].(string)
+	slug, ok := mx[conf.META_SLUG]
+	if !ok {
+		slug = util.NewPath().Name(path)
 	}
 
-	dir := strings.TrimPrefix(path, conf.PREFIX_CONTENT)
-	if m.Model.Root {
-		dir = strings.TrimPrefix(path, fmt.Sprintf(conf.PREFIX_PAGE, m.Model.Name))
+	dir, ok := mx[conf.META_DIR]
+	if !ok {
+		dir = NewPath().Dir(path)
 	}
-	route := NewPath().Route(lang, dir, slug)
+
+	route := NewPath().Route(lang.(string), dir.(string), slug.(string))
 
 	// set content
 	_ = cache.NewString().Set(NewKey().Content(route), content.String())
@@ -91,106 +91,136 @@ func (m *Markdown) Parse(path string) error {
 
 	// set lang
 	if lang != "" {
-		_ = cache.NewString().Set(NewKey().Lang(route), lang)
-	}
-
-	// check catalog
-	if !m.Model.Catalog {
-		return nil
+		_ = cache.NewString().Set(NewKey().Lang(route), lang.(string))
 	}
 
 	var t time.Time
 	// set archive
 	if mx[conf.META_DATE] != nil {
-		t, err = time.ParseInLocation("2006-01-02 15:04:05",
-			fmt.Sprintf("%s 00:00:00", mx[conf.META_DATE].(string)),
-			time.Local,
-		)
+		t, err = time.ParseInLocation("2006-01-02 15:04:05", fmt.Sprintf("%s 00:00:00", mx[conf.META_DATE].(string)), time.Local)
 		if err != nil {
 			return err
 		}
+
 		_ = cache.NewString().Set(NewKey().Date(route), t.String())
-
-		archive := NewPath().Archive(lang, fmt.Sprintf("%04d%02d", t.Year(), t.Month()))
-		// set list
-		total, ok := cache.NewZset().Set(archive, route, t.Unix())
-		if ok {
-			number := total / conf.NewConfig().Site.Size
-
-			page := NewPath().Page(archive, number)
-			// set route
-			_ = cache.NewSet().Set(conf.META_ARCHIVE, page)
-			// set option
-			_ = cache.NewHash().Set(NewKey().Page(page), &Option{
-				Template: conf.META_ARCHIVE,
-				Catalog:  archive,
-				Lang:     lang,
-				Page:     number,
-			})
-		}
 	}
 
-	// set category
-	if mx[conf.META_CATEGORY] != nil {
-		category := NewPath().Category(lang, mx[conf.META_CATEGORY].(string))
-		// set list
-		total, ok := cache.NewZset().Set(category, route, t.Unix())
-		if ok {
-			number := total / conf.NewConfig().Site.Size
-
-			page := NewPath().Page(category, number)
-			// set route
-			_ = cache.NewSet().Set(conf.META_CATEGORY, page)
-			// set option
-			_ = cache.NewHash().Set(NewKey().Page(page), &Option{
-				Template: conf.META_CATEGORY,
-				Catalog:  category,
-				Lang:     lang,
-				Page:     number,
-			})
-		}
-
-	}
-
-	// set tag
-	if mx[conf.META_TAG] != nil {
-		for _, v := range mx[conf.META_TAG].([]interface{}) {
-			tag := NewPath().Tag(lang, v.(string))
+	// set catalog
+	if m.Model.Catalog {
+		// set archive
+		if mx[conf.META_DATE] != nil {
+			archive := NewPath().Archive(lang.(string), fmt.Sprintf("%04d%02d", t.Year(), t.Month()))
 			// set list
-			total, ok := cache.NewZset().Set(tag, route, t.Unix())
+			total, ok := cache.NewZset().Set(archive, route, t.Unix())
 			if ok {
 				number := total / conf.NewConfig().Site.Size
 
-				page := NewPath().Page(tag, number)
 				// set route
-				_ = cache.NewSet().Set(conf.META_TAG, page)
+				page := NewPath().Page(archive, number)
+				_ = cache.NewSet().Set(conf.META_ARCHIVE, page)
+
 				// set option
-				_ = cache.NewHash().Set(NewKey().Page(page), &Option{
-					Template: conf.META_TAG,
-					Catalog:  tag,
-					Lang:     lang,
+				key := NewKey().Page(page)
+				_ = cache.NewHash().Set(key, &Option{
+					Template: conf.META_ARCHIVE,
+					Catalog:  archive,
+					Lang:     lang.(string),
 					Page:     number,
 				})
 			}
 		}
+
+		// set category
+		if mx[conf.META_CATEGORY] != nil {
+			category := NewPath().Category(lang.(string), mx[conf.META_CATEGORY].(string))
+			// set list
+			total, ok := cache.NewZset().Set(category, route, t.Unix())
+			if ok {
+				number := total / conf.NewConfig().Site.Size
+
+				// set route
+				page := NewPath().Page(category, number)
+				_ = cache.NewSet().Set(conf.META_CATEGORY, page)
+
+				// set option
+				key := NewKey().Page(page)
+				_ = cache.NewHash().Set(key, &Option{
+					Template: conf.META_CATEGORY,
+					Catalog:  category,
+					Lang:     lang.(string),
+					Page:     number,
+				})
+			}
+
+		}
+
+		// set tag
+		if mx[conf.META_TAG] != nil {
+			for _, v := range mx[conf.META_TAG].([]interface{}) {
+				tag := NewPath().Tag(lang.(string), v.(string))
+				// set list
+				total, ok := cache.NewZset().Set(tag, route, t.Unix())
+				if ok {
+					number := total / conf.NewConfig().Site.Size
+
+					// set route
+					page := NewPath().Page(tag, number)
+					_ = cache.NewSet().Set(conf.META_TAG, page)
+
+					// set option
+					key := NewKey().Page(page)
+					_ = cache.NewHash().Set(key, &Option{
+						Template: conf.META_TAG,
+						Catalog:  tag,
+						Lang:     lang.(string),
+						Page:     number,
+					})
+				}
+			}
+		}
+
+		catalog := NewPath().Catalog(lang.(string), m.Model.Name)
+		// set list
+		total, ok := cache.NewZset().Set(catalog, route, t.Unix())
+		if ok {
+			number := total / conf.NewConfig().Site.Size
+
+			// set catalog
+			page := NewPath().Page(catalog, number)
+			_ = cache.NewSet().Set(conf.META_CATALOG, page)
+
+			// set option
+			key := NewKey().Page(page)
+			_ = cache.NewHash().Set(key, &Option{
+				Template: m.Model.Template,
+				Catalog:  catalog,
+				Lang:     lang.(string),
+				Page:     number,
+			})
+		}
 	}
 
-	catalog := NewPath().Catalog(lang, m.Model.Name)
-	// set list
-	total, ok := cache.NewZset().Set(catalog, route, t.Unix())
-	if ok {
-		number := total / conf.NewConfig().Site.Size
+	// set contents
+	if m.Model.Contents {
+		contents := NewPath().Contents(lang.(string), path)
+		// set list
+		total, ok := cache.NewZset().Set(contents, route, t.Unix())
+		if ok {
+			number := total / conf.NewConfig().Site.Size
 
-		page := NewPath().Page(catalog, number)
-		// set catalog
-		_ = cache.NewSet().Set(conf.META_CATALOG, page)
-		// set option
-		_ = cache.NewHash().Set(NewKey().Page(page), &Option{
-			Template: m.Model.Template,
-			Catalog:  catalog,
-			Lang:     lang,
-			Page:     number,
-		})
+			// set contents
+			page := NewPath().Page(contents, number)
+			_ = cache.NewSet().Set(conf.META_CONTENTS, page)
+
+			// set option
+			key := NewKey().Page(page)
+			_ = cache.NewHash().Set(key, &Option{
+				Template: m.Model.Template,
+				Catalog:  contents,
+				Lang:     lang.(string),
+				Page:     0,
+			})
+		}
 	}
 	return nil
 }

@@ -8,7 +8,7 @@ type (
 		Action   string
 		Template string
 		Catalog  bool
-		Root     bool
+		Contents bool
 		Sidebar  []*Node
 		Subtree  []string
 	}

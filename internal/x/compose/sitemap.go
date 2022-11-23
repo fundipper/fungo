@@ -51,6 +51,21 @@ func (s *Sitemap) Item(name string) (string, error) {
 				})
 			}
 		}
+	case conf.MODEL_COLLECTION:
+		for _, v := range conf.NewConfig().Collection {
+			route, ok := cache.NewSet().Get(v.Name)
+			if !ok {
+				continue
+			}
+			for _, item := range route {
+				result = append(result, &plugin.Sitemap{
+					Loc:        fmt.Sprintf("%s%s", s.Origin, item),
+					Lastmod:    s.Now,
+					Changefreq: conf.NewConfig().Site.Sitemap.Changefreq,
+					Priority:   conf.NewConfig().Site.Sitemap.Priority,
+				})
+			}
+		}
 	case conf.MODEL_DOCUMENT:
 		for _, v := range conf.NewConfig().Document {
 			route, ok := cache.NewSet().Get(v.Name)

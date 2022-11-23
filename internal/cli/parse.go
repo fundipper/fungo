@@ -40,6 +40,22 @@ func (p *Parse) Run() {
 		}
 	}
 
+	for _, v := range conf.NewConfig().Collection {
+		path := filepath.Join(conf.CONTENT_ROOT, v.Name)
+		result, err := util.NewTree().ReadDir(path)
+		if err != nil {
+			continue
+		}
+		for _, item := range result {
+			wg.Add(1)
+			go func(model *conf.Model, path string) {
+				defer wg.Done()
+
+				_ = parse.NewMarkdown(model).Parse(path)
+			}(v, item)
+		}
+	}
+
 	for _, v := range conf.NewConfig().Document {
 		path := filepath.Join(conf.CONTENT_ROOT, v.Name)
 		result, err := util.NewTree().ReadDir(path)

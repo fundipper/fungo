@@ -3,7 +3,7 @@
        / /_   / / / /  / __ \  / __  / / __ \
       / __/  / /_/ /  / / / / / /_/ / / /_/ /
      /_/     \__,_/  /_/ /_/  \__, /  \____/
-                            /____/ v0.4.0
+                            /____/ v0.4.1
 
 # Overview
 
@@ -45,7 +45,7 @@ docker
 
 ps:
 
-default file model include [`article` , `page`, `document`]
+default file model include [`article` , `page`, `document`, `collection`]
 
 you can define your own file model with yaml in `source`
 

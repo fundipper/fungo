@@ -34,6 +34,27 @@ func (s *Serve) Run() {
 		}
 	}
 
+	for _, v := range conf.NewConfig().Collection {
+		route, ok := cache.NewSet().Get(v.Name)
+		if !ok {
+			continue
+		}
+		for _, item := range route {
+			r.GET(item, message.NewCollection(v).Serve)
+		}
+
+		if v.Contents {
+			route, ok := cache.NewSet().Get(conf.META_CONTENTS)
+			if !ok {
+				continue
+			}
+
+			for _, item := range route {
+				r.GET(item, message.NewContents(v).Serve)
+			}
+		}
+	}
+
 	for _, v := range conf.NewConfig().Document {
 		route, ok := cache.NewSet().Get(v.Name)
 		if !ok {
@@ -53,6 +74,7 @@ func (s *Serve) Run() {
 			r.GET(item, message.NewPage(v).Serve)
 		}
 	}
+
 	for _, v := range []string{conf.META_ARCHIVE, conf.META_CATEGORY, conf.META_TAG, conf.META_CATALOG} {
 		route, ok := cache.NewSet().Get(v)
 		if !ok {

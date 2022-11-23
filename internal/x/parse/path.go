@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/fundipper/fungo/conf"
-	"github.com/fundipper/fungo/pkg/util"
 )
 
 type Path struct{}
@@ -15,14 +14,19 @@ func NewPath() *Path {
 	return &Path{}
 }
 
-func (p *Path) Route(lang, path, slug string) string {
-	dir := filepath.Dir(path)
-	name := util.NewPath().Name(path)
-	if slug != "" {
-		name = slug
-	}
+func (p *Path) Dir(path string) string {
+	dir := strings.Split(path, "/")
+	return filepath.Join(dir[1 : len(dir)-1]...)
+}
 
-	path = filepath.Join(lang, dir, name)
+func (p *Path) Route(lang, dir, slug string) string {
+	path := filepath.Join(lang, dir, slug)
+	return fmt.Sprintf("/%s/", p.format(path))
+}
+
+func (p *Path) Contents(lang, path string) string {
+	path = filepath.Join(lang, p.Dir(path))
+
 	return fmt.Sprintf("/%s/", p.format(path))
 }
 

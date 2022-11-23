@@ -26,20 +26,23 @@ const (
 	META_CATALOG     = "catalog"
 	META_ARCHIVE     = "archive"
 	META_CATEGORY    = "category"
+	META_CONTENTS    = "contents"
 	META_DATE        = "date"
 	META_TAG         = "tag"
 	META_LANG        = "lang"
+	META_DIR         = "dir"
 	META_SLUG        = "slug"
 	META_TITLE       = "title"
 	META_DESCRIPTION = "description"
 	META_AUTHOR      = "author"
 
-	MODEL_ARTICLE   = "article"
-	MODEL_DOCUMENT  = "document"
-	MODEL_PAGE      = "page"
-	MODEL_I18N      = "i18n"
-	MODEL_CUSTOMIZE = "customize"
-	MODEL_THMEM     = "theme"
+	MODEL_ARTICLE    = "article"
+	MODEL_COLLECTION = "collection"
+	MODEL_DOCUMENT   = "document"
+	MODEL_PAGE       = "page"
+	MODEL_I18N       = "i18n"
+	MODEL_CUSTOMIZE  = "customize"
+	MODEL_THMEM      = "theme"
 
 	FEEDS_ATOM = "atom.xml"
 	FEEDS_RSS  = "rss.xml"
@@ -53,9 +56,7 @@ const (
 	PUBLIC_HTML    = "public%sindex.html"
 	PUBLIC_XML     = "public/sitemap/%s.xml"
 
-	ROOT_TOML      = "config.toml"
-	PREFIX_CONTENT = "content/"
-	PREFIX_PAGE    = "content/%s/"
+	ROOT_TOML = "config.toml"
 
 	SITEMAP_XML = "%s/sitemap/%s.xml"
 	SOURCE_YAML = "source/%s.yaml"
@@ -90,15 +91,16 @@ var (
 )
 
 type Config struct {
-	Article   []*Model
-	Customize []*Model
-	Document  []*Model
-	Page      []*Model
-	I18N      []*Model
-	Static    []*Model
-	Template  []*Model
-	Site      *Site
-	Theme     *Theme
+	Article    []*Model
+	Collection []*Model
+	Customize  []*Model
+	Document   []*Model
+	Page       []*Model
+	I18N       []*Model
+	Static     []*Model
+	Template   []*Model
+	Site       *Site
+	Theme      *Theme
 }
 
 func init() {

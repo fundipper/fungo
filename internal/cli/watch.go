@@ -95,6 +95,20 @@ func (w *Watch) Run() {
 		}
 	}
 
+	for _, v := range conf.NewConfig().Collection {
+		route, ok := cache.NewSet().Get(v.Name)
+		if !ok {
+			continue
+		}
+		for _, item := range route {
+			key := parse.NewKey().Path(item)
+			path, ok := cache.NewString().Get(key)
+			if ok {
+				_ = watcher.Add(path)
+			}
+		}
+	}
+
 	for _, v := range conf.NewConfig().Document {
 		route, ok := cache.NewSet().Get(v.Name)
 		if !ok {

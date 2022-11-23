@@ -37,6 +37,37 @@ func (b *Build) Run() {
 		}
 	}
 
+	for _, v := range conf.NewConfig().Collection {
+		route, ok := cache.NewSet().Get(v.Name)
+		if !ok {
+			continue
+		}
+		for _, item := range route {
+			wg.Add(1)
+			go func(model *conf.Model, path string) {
+				defer wg.Done()
+
+				_ = message.NewCollection(model).Build(path)
+			}(v, item)
+		}
+
+		if v.Contents {
+			route, ok := cache.NewSet().Get(conf.META_CONTENTS)
+			if !ok {
+				continue
+			}
+
+			for _, item := range route {
+				wg.Add(1)
+				go func(model *conf.Model, path string) {
+					defer wg.Done()
+
+					_ = message.NewContents(model).Build(path)
+				}(v, item)
+			}
+		}
+	}
+
 	for _, v := range conf.NewConfig().Document {
 		route, ok := cache.NewSet().Get(v.Name)
 		if !ok {

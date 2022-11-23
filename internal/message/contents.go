@@ -12,13 +12,17 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-type Catalog struct{}
-
-func NewCatalog() *Catalog {
-	return &Catalog{}
+type Contents struct {
+	Model *conf.Model
 }
 
-func (c *Catalog) Serve(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func NewContents(model *conf.Model) *Contents {
+	return &Contents{
+		Model: model,
+	}
+}
+
+func (c *Contents) Serve(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	path, err := url.QueryUnescape(r.RequestURI)
 	if err != nil {
 		panic(err)
@@ -47,12 +51,13 @@ func (c *Catalog) Serve(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 		Site:    conf.NewConfig().Site,
 		Theme:   conf.NewConfig().Theme,
 		Catalog: result,
+		Sidebar: c.Model.Sidebar,
 		Page:    page,
 	})
 	panic(err)
 }
 
-func (c *Catalog) Build(path string) error {
+func (c *Contents) Build(path string) error {
 	key := parse.NewKey().Page(path)
 	data, ok := cache.NewHash().Get(key)
 	if !ok {
@@ -75,6 +80,7 @@ func (c *Catalog) Build(path string) error {
 		Site:    conf.NewConfig().Site,
 		Theme:   conf.NewConfig().Theme,
 		Catalog: result,
+		Sidebar: c.Model.Sidebar,
 		Page:    page,
 	})
 }
