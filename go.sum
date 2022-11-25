@@ -98,10 +98,14 @@ github.com/flynn/go-shlex v0.0.0-20150515145356-3f9db97f8568/go.mod h1:xEzjJPgXI
 github.com/frankban/quicktest v1.14.3 h1:FJKSZTDHjyhriyC81FLQ0LY93eSai0ZyR/ZIkd3ZUKE=
 github.com/fsnotify/fsnotify v1.6.0 h1:n+5WquG0fcWoWp6xPWfHdbskMCQaFnG6PfBrh1Ky4HY=
 github.com/fsnotify/fsnotify v1.6.0/go.mod h1:sl3t1tCWJFWoRz9R8WJCbQihKKwmorjAbSClcnxKAGw=
+github.com/fundipper/goldmark-autolinks v0.0.1 h1:v3tMk4a/acwlzdYHyAXQuYcv1h4gsGGvnBWwsE5aUIw=
+github.com/fundipper/goldmark-autolinks v0.0.1/go.mod h1:7pGRgqk5VDof0jD4LWKwiFfilL6+H5PEP2haDYWt8rM=
 github.com/fundipper/goldmark-images v0.1.2 h1:VaN4c3Qcwxd1oXtjalqVmBFfmS0eor/y6zN57VlWg0Q=
 github.com/fundipper/goldmark-images v0.1.2/go.mod h1:o2mqZdZZv4heqKzyYEfqkTRzvofZsLBymRryKXbuuHk=
 github.com/fundipper/goldmark-links v0.1.0 h1:T8k1+Utk/zirAgasOInXAaIEnOjtGkZQAWe69qYuhag=
 github.com/fundipper/goldmark-links v0.1.0/go.mod h1:e+zrEj9H4lRpN96WDuT6Uk3CjFDRJJi4isKMYbUzvBI=
+github.com/fundipper/goldmark-replacer v0.0.3 h1:5e99hyCEJ0ZGroMeRuhQ2M9HyYgOlAKutPsp6HYp7CE=
+github.com/fundipper/goldmark-replacer v0.0.3/go.mod h1:QMMpirROWYRyF0KYiAo5RWQwEnJehUnbEqtaIfsualc=
 github.com/fundipper/goldmark-videos v0.1.2 h1:Sb3QV7DS92+qjxZCuVBHaC6GnsdX8srJdcBzdCVbM+w=
 github.com/fundipper/goldmark-videos v0.1.2/go.mod h1:+zhIP/gVxAR+btq4mwX5rDKFDSBnd81nM0ulhB6hOuI=
 github.com/gliderlabs/ssh v0.2.2 h1:6zsha5zo/TWhRhwqCD3+EarCAgZ2yN28ipRnGPnwkI0=
@@ -286,8 +290,8 @@ github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9dec
 github.com/yuin/goldmark v1.3.3/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1Zlc8k=
 github.com/yuin/goldmark v1.4.5/go.mod h1:rmuwmfZ0+bvzB24eSC//bk1R1Zp3hM0OXYv/G2LIilg=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
-github.com/yuin/goldmark v1.5.2 h1:ALmeCk/px5FSm1MAcFBAsVKZjDuMVj8Tm7FFIlMJnqU=
-github.com/yuin/goldmark v1.5.2/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
+github.com/yuin/goldmark v1.5.3 h1:3HUJmBFbQW9fhQOzMgseU134xfi6hU+mjWywx5Ty+/M=
+github.com/yuin/goldmark v1.5.3/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 github.com/yuin/goldmark-emoji v1.0.1 h1:ctuWEyzGBwiucEqxzwe0SOYDXPAucOrE9NQC18Wa1os=
 github.com/yuin/goldmark-emoji v1.0.1/go.mod h1:2w1E6FEWLcDQkoTE+7HU6QF1F6SLlNGjRIBbIZQFqkQ=
 github.com/yuin/goldmark-highlighting v0.0.0-20220208100518-594be1970594 h1:yHfZyN55+5dp1wG7wDKv8HQ044moxkyGq12KFFMFDxg=

@@ -56,17 +56,17 @@ func (m *Markdown) Parse(path string) error {
 
 	// set route
 	lang, ok := mx[conf.META_LANG]
-	if !ok {
+	if !ok || lang == "" {
 		lang = ""
 	}
 
 	slug, ok := mx[conf.META_SLUG]
-	if !ok {
+	if !ok || slug == "" {
 		slug = util.NewPath().Name(path)
 	}
 
 	dir, ok := mx[conf.META_DIR]
-	if !ok {
+	if !ok || dir == "" {
 		dir = NewPath().Dir(path)
 	}
 
@@ -94,16 +94,17 @@ func (m *Markdown) Parse(path string) error {
 		_ = cache.NewString().Set(NewKey().Lang(route), lang.(string))
 	}
 
-	var t time.Time
-	// set archive
-	if mx[conf.META_DATE] != nil {
-		t, err = time.ParseInLocation("2006-01-02 15:04:05", fmt.Sprintf("%s 00:00:00", mx[conf.META_DATE].(string)), time.Local)
-		if err != nil {
-			return err
-		}
-
-		_ = cache.NewString().Set(NewKey().Date(route), t.String())
+	date, ok := mx[conf.META_DATE]
+	if !ok || date == nil {
+		date = time.Now().Format("2006-01-02 15:04:05")
 	}
+
+	// set archive
+	t, err := time.ParseInLocation("2006-01-02 15:04:05", fmt.Sprintf("%s 00:00:00", date.(string)), time.Local)
+	if err != nil {
+		return err
+	}
+	_ = cache.NewString().Set(NewKey().Date(route), t.String())
 
 	// set catalog
 	if m.Model.Catalog {

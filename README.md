@@ -3,7 +3,7 @@
        / /_   / / / /  / __ \  / __  / / __ \
       / __/  / /_/ /  / / / / / /_/ / / /_/ /
      /_/     \__,_/  /_/ /_/  \__, /  \____/
-                            /____/ v0.4.1
+                            /____/ v0.4.2
 
 # Overview
 
@@ -95,86 +95,86 @@ how to use fungo ? see [https://fungo.dev/doc/overview/](https://fungo.dev/doc/o
 
 ## feature
 
-- [x] Support
+-   [x] Support
 
-  - [x] [Article](https://fungo.dev/doc/create/article/)
+    -   [x] [Article](https://fungo.dev/doc/create/article/)
 
-  - [x] [Page](https://fungo.dev/doc/create/page/)
+    -   [x] [Page](https://fungo.dev/doc/create/page/)
 
-  - [x] [Document](https://fungo.dev/doc/create/document/)
+    -   [x] [Document](https://fungo.dev/doc/create/document/)
 
-  - [x] [Customize](https://fungo.dev/doc/create/customize/)
+    -   [x] [Customize](https://fungo.dev/doc/create/customize/)
 
-  - [x] [I18N](https://fungo.dev/doc/create/i18n/)
+    -   [x] [I18N](https://fungo.dev/doc/create/i18n/)
 
-- [x] [Markdown](https://fungo.dev/doc/config/site/markdown/)
+-   [x] [Markdown](https://fungo.dev/doc/config/site/markdown/)
 
-  - [x] TOC
+    -   [x] TOC
 
-  - [x] META
+    -   [x] META
 
-  - [x] Emoji
+    -   [x] Emoji
 
-  - [x] GFM (Table，Strikethrough，Linkify，TaskList)
+    -   [x] GFM (Table，Strikethrough，Linkify，TaskList)
 
-  - [x] DefinitionList
+    -   [x] DefinitionList
 
-  - [x] Footnote
+    -   [x] Footnote
 
-  - [x] Typographer
+    -   [x] Typographer
 
-  - [x] Mathjax
+    -   [x] Mathjax
 
-  - [x] Mermaid
+    -   [x] Mermaid
 
-  - [x] [Highlighting](https://fungo.dev/doc/config/site/highlighting/)
+    -   [x] [Highlighting](https://fungo.dev/doc/config/site/highlighting/)
 
-  - [x] [Image Lazyload](https://fungo.dev/doc/config/site/image/)
+    -   [x] [Image Lazyload](https://fungo.dev/doc/config/site/image/)
 
-  - [x] [Link Reset](https://fungo.dev/doc/config/site/link/)
+    -   [x] [Link Reset](https://fungo.dev/doc/config/site/link/)
 
-  - [x] [Video Embed](https://fungo.dev/doc/config/site/video/)
+    -   [x] [Video Embed](https://fungo.dev/doc/config/site/video/)
 
-- [x] [Feeds](https://fungo.dev/doc/config/site/feeds/)
+-   [x] [Feeds](https://fungo.dev/doc/config/site/feeds/)
 
-  - [x] RSS 2.0
+    -   [x] RSS 2.0
 
-  - [x] Atom 1.0
+    -   [x] Atom 1.0
 
-  - [x] JSON 1.1
+    -   [x] JSON 1.1
 
-- [x] SEO
+-   [x] SEO
 
-  - [x] [Sitemap.xml](https://fungo.dev/doc/config/site/sitemap/)
+    -   [x] [Sitemap.xml](https://fungo.dev/doc/config/site/sitemap/)
 
-  - [x] [Robots.txt](https://fungo.dev/doc/config/site/robots/)
+    -   [x] [Robots.txt](https://fungo.dev/doc/config/site/robots/)
 
 ## Thanks
 
-- Language & Framework
+-   Language & Framework
 
-  - [golang](https://go.dev/)
+    -   [golang](https://go.dev/)
 
-  - [tailwindcss](https://www.tailwindcss.com/)
+    -   [tailwindcss](https://www.tailwindcss.com/)
 
-  - [alpinejs](https://alpinejs.dev/)
+    -   [alpinejs](https://alpinejs.dev/)
 
-- Tools & Libraries
+-   Tools & Libraries
 
-  - [cobra](https://github.com/spf13/cobra)
+    -   [cobra](https://github.com/spf13/cobra)
 
-  - [viper](https://github.com/spf13/viper)
+    -   [viper](https://github.com/spf13/viper)
 
-  - [goldmark](https://github.com/yuin/goldmark)
+    -   [goldmark](https://github.com/yuin/goldmark)
 
-  - [ristretto](https://github.com/dgraph-io/ristretto)
+    -   [ristretto](https://github.com/dgraph-io/ristretto)
 
-  - [httprouter](https://github.com/julienschmidt/httprouter)
+    -   [httprouter](https://github.com/julienschmidt/httprouter)
 
-  - [fsnotify](https://github.com/fsnotify/fsnotify)
+    -   [fsnotify](https://github.com/fsnotify/fsnotify)
 
-  - [copy](https://github.com/otiai10/copy)
+    -   [copy](https://github.com/otiai10/copy)
 
-  - [go-git](https://github.com/go-git/go-git)
+    -   [go-git](https://github.com/go-git/go-git)
 
-  - [etree](https://github.com/beevik/etree)
+    -   [etree](https://github.com/beevik/etree)

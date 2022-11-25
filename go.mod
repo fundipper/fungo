@@ -11,8 +11,10 @@ require (
 	github.com/dgraph-io/ristretto v0.1.1
 	github.com/fatih/color v1.13.0
 	github.com/fsnotify/fsnotify v1.6.0
+	github.com/fundipper/goldmark-autolinks v0.0.1
 	github.com/fundipper/goldmark-images v0.1.2
 	github.com/fundipper/goldmark-links v0.1.0
+	github.com/fundipper/goldmark-replacer v0.0.3
 	github.com/fundipper/goldmark-videos v0.1.2
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/julienschmidt/httprouter v1.3.0
@@ -24,7 +26,7 @@ require (
 	github.com/spf13/viper v1.14.0
 	github.com/stefanfritsch/goldmark-fences v0.0.0-20221109095022-24cfb8a295fc
 	github.com/yddeng/sortedset v0.0.0-20220714054812-45941841aada
-	github.com/yuin/goldmark v1.5.2
+	github.com/yuin/goldmark v1.5.3
 	github.com/yuin/goldmark-emoji v1.0.1
 	github.com/yuin/goldmark-highlighting v0.0.0-20220208100518-594be1970594
 	github.com/yuin/goldmark-meta v1.1.0

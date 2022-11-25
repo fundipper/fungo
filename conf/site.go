@@ -46,6 +46,14 @@ type (
 				Source    []*Embed
 				Attribute map[string]string
 			}
+			AutoLink struct {
+				State  bool
+				Source map[string]string
+			}
+			Replacer struct {
+				State  bool
+				Source []string
+			}
 		}
 		Sitemap struct {
 			Changefreq string

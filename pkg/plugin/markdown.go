@@ -7,8 +7,10 @@ import (
 	toc "github.com/abhinav/goldmark-toc"
 	htmls "github.com/alecthomas/chroma/formatters/html"
 	"github.com/fundipper/fungo/conf"
+	autolinks "github.com/fundipper/goldmark-autolinks"
 	images "github.com/fundipper/goldmark-images"
 	links "github.com/fundipper/goldmark-links"
+	replacer "github.com/fundipper/goldmark-replacer"
 	videos "github.com/fundipper/goldmark-videos"
 	mathjax "github.com/litao91/goldmark-mathjax"
 	fences "github.com/stefanfritsch/goldmark-fences"
@@ -114,6 +116,18 @@ func init() {
 			m,
 			mx.Video.Attribute,
 		))
+	}
+
+	// autolinks
+	if mx.AutoLink.State {
+		ext = append(ext,
+			autolinks.NewExtender(mx.AutoLink.Source),
+		)
+	}
+
+	// replacer
+	if mx.Replacer.State {
+		ext = append(ext, replacer.NewExtender(mx.Replacer.Source...))
 	}
 
 	md = goldmark.New(
